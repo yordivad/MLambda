@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+      <PackageReference Include="System.Reactive" Version="4.2.0" />
+      <PackageReference Include="System.Reactive.Observable.Aliases" Version="4.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="..\..\stylecop.json">
+            <Link>stylecop.json</Link>
+        </AdditionalFiles>
+    </ItemGroup>
+    
+</Project>

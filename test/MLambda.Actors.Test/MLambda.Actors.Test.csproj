@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NUnit" Version="3.12.0" />
+      <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+      <PackageReference Include="SpecFlow" Version="3.1.62" />
+      <PackageReference Include="SpecFlow.NUnit" Version="3.1.62" />
+      <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.62" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Actor.feature" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\MLambda.Actors.Abstraction\MLambda.Actors.Abstraction.csproj" />
+      <ProjectReference Include="..\..\src\MLambda.Actors\MLambda.Actors.csproj" />
+    </ItemGroup>
+
+    
+
+</Project>
