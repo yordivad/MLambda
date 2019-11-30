@@ -1,17 +1,31 @@
+using System;
+using System.Reactive.Linq;
+
 namespace MLambda.Actors.Test.Steps
 {
-    using System.Reactive.Linq;
-    using Actors.Abstraction;
-    using Actors.Test.Specimen;
+    using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Test.Specimen;
     using TechTalk.SpecFlow;
 
+    /// <summary>
+    /// The actor steps scenario.
+    /// </summary>
     [Binding]
     public class ActorStep
     {
+        private readonly IUserContext user;
+
         private readonly ScenarioContext scenario;
 
-        public ActorStep(ScenarioContext scenario)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActorStep"/> class.
+        /// </summary>
+        /// <param name="user">The user context.</param>
+        /// <param name="scenario">the scenario.</param>
+        public ActorStep(IUserContext user, ScenarioContext scenario)
         {
+            this.user = user;
             this.scenario = scenario;
         }
 
@@ -23,10 +37,10 @@ namespace MLambda.Actors.Test.Steps
         [When(@"Create the actor")]
         public async void WhenCreateTheActor()
         {
-            var user = this.scenario.Get<IUserContext>("provider");
-            var address = await user.Spawn<ConsoleActor>();
+            var address = await this.user.Spawn<ConsoleActor>();
             await address.Send("Hello World");
+            var x = await address.Send<(string a, string b), string>(("a", "b"));
+            Console.WriteLine(x);
         }
-
     }
 }

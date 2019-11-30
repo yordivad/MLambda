@@ -24,12 +24,12 @@ namespace MLambda.Actors.Abstraction
         /// Push the message in the mail box.
         /// </summary>
         /// <param name="message">The future message.</param>
-        void Add(Promise message);
+        void Add(IMessage message);
 
         /// <summary>
         /// Pops the message.
         /// </summary>
         /// <returns>The future message.</returns>
-        Promise Take();
+        IMessage Take();
     }
 }

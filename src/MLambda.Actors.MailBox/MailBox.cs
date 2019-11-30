@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StackMailBox.cs" company="MLambda">
+// <copyright file="MailBox.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -18,36 +18,36 @@ namespace MLambda.Actors.MailBox
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
-    using Actors.Abstraction;
+    using MLambda.Actors.Abstraction;
 
     /// <summary>
     /// The mail box class.
     /// </summary>
-    public class StackMailBox : IMailBox
+    public class MailBox : IMailBox
     {
-        private readonly Mutex mutex;
+        private readonly Queue<IMessage> messages;
 
-        private readonly Stack<Promise> stack;
+        private readonly object locker;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StackMailBox"/> class.
+        /// Initializes a new instance of the <see cref="MailBox"/> class.
         /// </summary>
-        public StackMailBox()
+        public MailBox()
         {
-            this.stack = new Stack<Promise>();
-            this.mutex = new Mutex();
+            this.locker = new object();
+            this.messages = new Queue<IMessage>();
         }
 
         /// <summary>
         /// Add the message to the mailbox.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void Add(Promise message)
+        public void Add(IMessage message)
         {
-            lock (this.stack)
+            lock (this.locker)
             {
-                this.stack.Push(message);
-                this.mutex.ReleaseMutex();
+                this.messages.Enqueue(message);
+                Monitor.Pulse(this.locker);
             }
         }
 
@@ -55,16 +55,16 @@ namespace MLambda.Actors.MailBox
         /// Takes the message in the queue.
         /// </summary>
         /// <returns>The feature.</returns>
-        public Promise Take()
+        public IMessage Take()
         {
-            lock (this.stack)
+            lock (this.locker)
             {
-                while (!this.stack.Any())
+                while (!this.messages.Any())
                 {
-                    this.mutex.WaitOne();
+                    Monitor.Wait(this.locker);
                 }
 
-                return this.stack.Pop();
+                return this.messages.Dequeue();
             }
         }
     }

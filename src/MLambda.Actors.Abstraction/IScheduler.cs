@@ -33,7 +33,7 @@ namespace MLambda.Actors.Abstraction
         /// Subscribes the notification.
         /// </summary>
         /// <param name="notify">the method to notify.</param>
-        void Subscribe(Func<Promise, Task> notify);
+        void Subscribe(Func<IMessage, Task> notify);
 
         /// <summary>
         /// Starts the scheduler.

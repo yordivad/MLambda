@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Context.cs" company="MLambda">
+// <copyright file="Dependency.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,48 +13,46 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors
+namespace MLambda.Actors.Core
 {
     using System;
-    using System.Reactive.Linq;
+    using Microsoft.Extensions.DependencyInjection;
     using MLambda.Actors.Abstraction;
 
     /// <summary>
-    /// The actor context task.
+    /// The dependency class.
     /// </summary>
-    public class Context : IMainContext
+    public class Dependency : IDependency
     {
-        private readonly IBucket container;
-
-        private IProcess process;
+        private readonly IServiceProvider provider;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Context"/> class.
+        /// Initializes a new instance of the <see cref="Dependency"/> class.
         /// </summary>
-        /// <param name="container">the container.</param>
-        public Context(IBucket container)
+        /// <param name="provider">The provider.</param>
+        public Dependency(IServiceProvider provider)
         {
-            this.container = container;
+            this.provider = provider;
         }
 
         /// <summary>
-        /// Spawns a new actor.
+        /// Revolve the instance of type T.
         /// </summary>
-        /// <typeparam name="T">the type of the actor.</typeparam>
-        /// <returns>The address.</returns>
-        public IObservable<IAddress> Spawn<T>()
-            where T : IActor
+        /// <typeparam name="T">The type of the instance.</typeparam>
+        /// <returns>The instance.</returns>
+        public T Resolve<T>()
         {
-            return Observable.Return(this.container.Spawn<T>(this.process));
+            return this.provider.GetService<T>();
         }
 
         /// <summary>
-        /// Setups the process.
+        /// Resolve the instance of the type.
         /// </summary>
-        /// <param name="pid">the process.</param>
-        public void SetProcess(IProcess pid)
+        /// <param name="type">the type of the instance.</param>
+        /// <returns>The instance as object.</returns>
+        public object Resolve(Type type)
         {
-            this.process = pid;
+            return this.provider.GetService(type);
         }
     }
 }

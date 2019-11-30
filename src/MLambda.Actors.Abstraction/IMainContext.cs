@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserActor.cs" company="MLambda">
+// <copyright file="IMainContext.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,26 +13,17 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Guardian
+namespace MLambda.Actors.Abstraction
 {
-    using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Annotation;
-
     /// <summary>
-    /// The user actor class.
+    /// The main context interface.
     /// </summary>
-    [Address("user")]
-    public class UserActor : IActor
+    public interface IMainContext : IContext
     {
         /// <summary>
-        /// Receives the message.
+        /// Sets the process.
         /// </summary>
-        /// <param name="data">the data.</param>
-        /// <returns>the behavior.</returns>
-        public Behavior Receive(object data) =>
-            data switch
-            {
-                _ => Actor.Ignore
-            };
+        /// <param name="pid">the process.</param>
+        void SetProcess(IProcess pid);
     }
 }

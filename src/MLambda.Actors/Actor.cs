@@ -32,35 +32,34 @@ namespace MLambda.Actors
         public static IObservable<object> Default => Observable.Return((object)Unit.Default);
 
         /// <summary>
+        /// Gets the done value.
+        /// </summary>
+        public static IObservable<Unit> Done => Observable.Return(Unit.Default);
+
+        /// <summary>
         /// Gets The ignore behavior.
         /// </summary>
-        public static Behaivor Ignore => _ => Default;
+        public static Behavior Ignore => _ => Default;
+
+        /// <summary>
+        /// The Behavior handler for the message.
+        /// </summary>
+        /// <param name="apply">the lambda method.</param>
+        /// <typeparam name="To">The type of the response.</typeparam>
+        /// <returns>The behavior.</returns>
+        public static Behavior Behavior<To>(Func<IContext, IObservable<To>> apply) =>
+            ctx => apply(ctx).Map(val => (object)val);
 
         /// <summary>
         /// The Behavior handler for the message.
         /// </summary>
         /// <param name="apply">the lambda method.</param>
         /// <param name="a">the value a.</param>
-        /// <typeparam name="Ta">The type of a.</typeparam>
         /// <typeparam name="To">The type of the response.</typeparam>
-        /// <returns>The behavior.</returns>
-        public static Behaivor Behavior<To>(Func<IContext, IObservable<To>> a)
-        {
-            return ctx => a(ctx).Map(val => (object) val);
-        }
-
-        /// <summary>
-        /// The Behavior handler for the message.
-        /// </summary>
-        /// <param name="apply">the lambda method.</param>
-        /// <param name="a">the value a.</param>
         /// <typeparam name="Ta">The type of a.</typeparam>
-        /// <typeparam name="To">The type of the response.</typeparam>
         /// <returns>The behavior.</returns>
-        public static Behaivor Behavior<To, Ta>(Func<IContext, Ta, IObservable<To>> apply, Ta a)
-        {
-            return ctx => apply(ctx, a).Map(val => (object) val);
-        }
+        public static Behavior Behavior<To, Ta>(Func<IContext, Ta, IObservable<To>> apply, Ta a) =>
+            ctx => apply(ctx, a).Map(val => (object)val);
 
         /// <summary>
         /// The Behavior handler for the message.
@@ -72,10 +71,8 @@ namespace MLambda.Actors
         /// <typeparam name="Ta">The type of a.</typeparam>
         /// <typeparam name="Tb">The type of b.</typeparam>
         /// <returns>The behavior.</returns>
-        public static Behaivor Behavior<To, Ta, Tb>(Func<IContext, Ta, Tb, IObservable<To>> apply, Ta a, Tb b)
-        {
-            return ctx => apply(ctx, a, b).Map(val => (object) val);
-        }
+        public static Behavior Behavior<To, Ta, Tb>(Func<IContext, Ta, Tb, IObservable<To>> apply, Ta a, Tb b) =>
+            ctx => apply(ctx, a, b).Map(val => (object)val);
 
         /// <summary>
         /// The Behavior handler for the message.
@@ -89,11 +86,55 @@ namespace MLambda.Actors
         /// <typeparam name="Tb">The type of b.</typeparam>
         /// <typeparam name="Tc">The type of c.</typeparam>
         /// <returns>The behavior.</returns>
-        public static Behaivor Behavior<To, Ta, Tb, Tc>(Func<IContext, Ta, Tb, Tc, IObservable<To>> apply, Ta a, Tb b,
-            Tc c)
-        {
-            return ctx => apply(ctx, a, b, c).Map(val => (object) val);
-        }
+        public static Behavior Behavior<To, Ta, Tb, Tc>(Func<IContext, Ta, Tb, Tc, IObservable<To>> apply, Ta a, Tb b, Tc c) =>
+            ctx => apply(ctx, a, b, c).Map(val => (object)val);
+
+        /// <summary>
+        /// The Behavior handler for the message.
+        /// </summary>
+        /// <param name="apply">the lambda method.</param>
+        /// <typeparam name="To">The type of the response.</typeparam>
+        /// <returns>The behavior.</returns>
+        public static Behavior Behavior<To>(Func<IObservable<To>> apply) => _ => apply().Map(val => (object)val);
+
+        /// <summary>
+        /// The Behavior handler for the message.
+        /// </summary>
+        /// <param name="apply">the lambda method.</param>
+        /// <param name="a">the value a.</param>
+        /// <typeparam name="To">The type of the response.</typeparam>
+        /// <typeparam name="Ta">The type of a.</typeparam>
+        /// <returns>The behavior.</returns>
+        public static Behavior Behavior<To, Ta>(Func<Ta, IObservable<To>> apply, Ta a) =>
+            _ => apply(a).Map(val => (object)val);
+
+        /// <summary>
+        /// The Behavior handler for the message.
+        /// </summary>
+        /// <param name="apply">the lambda method.</param>
+        /// <param name="a">the value a.</param>
+        /// <param name="b">the value b.</param>
+        /// <typeparam name="To">The type of the response.</typeparam>
+        /// <typeparam name="Ta">The type of a.</typeparam>
+        /// <typeparam name="Tb">The type of b.</typeparam>
+        /// <returns>The behavior.</returns>
+        public static Behavior Behavior<To, Ta, Tb>(Func<Ta, Tb, IObservable<To>> apply, Ta a, Tb b) =>
+            _ => apply(a, b).Map(val => (object)val);
+
+        /// <summary>
+        /// The Behavior handler for the message.
+        /// </summary>
+        /// <param name="apply">the lambda method.</param>
+        /// <param name="a">the value a.</param>
+        /// <param name="b">the value b.</param>
+        /// <param name="c">the value c.</param>
+        /// <typeparam name="To">The type of the response.</typeparam>
+        /// <typeparam name="Ta">The type of a.</typeparam>
+        /// <typeparam name="Tb">The type of b.</typeparam>
+        /// <typeparam name="Tc">The type of c.</typeparam>
+        /// <returns>The behavior.</returns>
+        public static Behavior Behavior<To, Ta, Tb, Tc>(Func<Ta, Tb, Tc, IObservable<To>> apply, Ta a, Tb b, Tc c) =>
+            _ => apply(a, b, c).Map(val => (object)val);
 
         /// <summary>
         /// The Behavior handler for the message.
@@ -109,10 +150,24 @@ namespace MLambda.Actors
         /// <typeparam name="Tc">The type of c.</typeparam>
         /// <typeparam name="Td">The type of d.</typeparam>
         /// <returns>The behavior.</returns>
-        public static Behaivor Behavior<To, Ta, Tb, Tc, Td>(Func<IContext, Ta, Tb, Tc, Td, IObservable<To>> apply, Ta a,
-            Tb b, Tc c, Td d)
-        {
-            return ctx => apply(ctx, a, b, c, d).Map(val => (object) val);
-        }
+        public static Behavior Behavior<To, Ta, Tb, Tc, Td>(Func<Ta, Tb, Tc, Td, IObservable<To>> apply, Ta a, Tb b, Tc c, Td d) =>
+            _ => apply(a, b, c, d).Map(val => (object)val);
+
+        /// <summary>
+        /// The Behavior handler for the message.
+        /// </summary>
+        /// <param name="apply">the lambda method.</param>
+        /// <param name="a">the value a.</param>
+        /// <param name="b">the value b.</param>
+        /// <param name="c">the value c.</param>
+        /// <param name="d">the value d.</param>
+        /// <typeparam name="To">The type of the response.</typeparam>
+        /// <typeparam name="Ta">The type of a.</typeparam>
+        /// <typeparam name="Tb">The type of b.</typeparam>
+        /// <typeparam name="Tc">The type of c.</typeparam>
+        /// <typeparam name="Td">The type of d.</typeparam>
+        /// <returns>The behavior.</returns>
+        public static Behavior Behavior<To, Ta, Tb, Tc, Td>(Func<IContext, Ta, Tb, Tc, Td, IObservable<To>> apply, Ta a, Tb b, Tc c, Td d) =>
+            ctx => apply(ctx, a, b, c, d).Map(val => (object)val);
     }
 }

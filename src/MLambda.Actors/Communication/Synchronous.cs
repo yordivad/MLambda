@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Promise.cs" company="MLambda">
+// <copyright file="Synchronous.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,40 +13,34 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Abstraction
+namespace MLambda.Actors.Communication
 {
     using System;
     using System.Reactive.Linq;
     using System.Threading.Tasks;
+    using MLambda.Actors.Abstraction;
 
     /// <summary>
     /// The feature class.
     /// </summary>
-    public class Promise
+    public class Synchronous : IMessage
     {
         private readonly TaskCompletionSource<object> callback;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Promise"/> class.
+        /// Initializes a new instance of the <see cref="Synchronous"/> class.
         /// </summary>
         /// <param name="message">the message to propagate.</param>
-        /// <param name="wait">it should wait.</param>
-        public Promise(object message, bool wait)
+        public Synchronous(object message)
         {
-            this.Wait = wait;
-            this.Message = message;
+            this.Payload = message;
             this.callback = new TaskCompletionSource<object>();
         }
 
         /// <summary>
-        /// Gets a value indicating whether gets for wait for the response.
-        /// </summary>
-        public bool Wait { get; }
-
-        /// <summary>
         /// Gets the message.
         /// </summary>
-        public object Message { get; }
+        public object Payload { get; }
 
         /// <summary>
         /// Change the feature to a observable.

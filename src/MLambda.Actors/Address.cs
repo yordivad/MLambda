@@ -17,7 +17,9 @@ namespace MLambda.Actors
 {
     using System;
     using System.Reactive;
-    using Actors.Abstraction;
+    using System.Reactive.Linq;
+    using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Communication;
 
     /// <summary>
     /// The actor proxy implementation.
@@ -44,7 +46,7 @@ namespace MLambda.Actors
         /// <returns>The response of the object.</returns>
         public IObservable<TO> Send<TI, TO>(TI message)
         {
-            var future = new Promise(message, typeof(TO) is Unit );
+            var future = new Synchronous(message);
             this.mailBox.Add(future);
             return future.ToObservable<TO>();
         }
@@ -55,6 +57,11 @@ namespace MLambda.Actors
         /// <param name="message">the message.</param>
         /// <typeparam name="T">The type of the message.</typeparam>
         /// <returns>The response of the the actor.</returns>
-        public IObservable<Unit> Send<T>(T message) => this.Send<T, Unit>(message);
+        public IObservable<Unit> Send<T>(T message)
+        {
+            var future = new Asynchronous(message);
+            this.mailBox.Add(future);
+            return Observable.Return(Unit.Default);
+        }
     }
 }

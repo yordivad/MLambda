@@ -16,7 +16,6 @@
 namespace MLambda.Actors
 {
     using System;
-    using System.Reactive;
     using System.Reactive.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -47,6 +46,7 @@ namespace MLambda.Actors
             this.dependency = dependency;
             this.scheduler = this.dependency.Resolve<IScheduler>();
             this.scheduler.Subscribe(this.Handler);
+            this.scheduler.Start();
         }
 
         /// <summary>
@@ -62,14 +62,17 @@ namespace MLambda.Actors
         /// <summary>
         /// Gets the path.
         /// </summary>
-        public string Id => this.path ??= $"{this.parentId}/{this.ChildId}";
+        public string Id => this.path ??= this.parentId.EndsWith("/")
+            ? $"{this.parentId}{this.ChildId}"
+            : $"{this.parentId}/{this.ChildId}";
 
         /// <summary>
         /// Gets the address.
         /// </summary>
         public IAddress Address => this.address ??= new Address(this.scheduler.MailBox);
 
-        private string ChildId => this.Child.GetType().GetCustomAttribute<AddressAttribute>()?.Name;
+        private string ChildId => this.Child.GetType().GetCustomAttribute<AddressAttribute>()?.Name ??
+                                  this.Child.GetType().Name;
 
         /// <summary>
         /// Setups the actors.
@@ -78,18 +81,18 @@ namespace MLambda.Actors
         /// <param name="childActor">the child actor.</param>
         public void Setup(IProcess process, IActor childActor)
         {
-            this.parentId = process?.Id;
+            this.parentId = process?.Id ?? string.Empty;
             this.Parent = process?.Child;
             this.Child = childActor;
         }
 
-        private async Task Handler(Promise promise)
+        private async Task Handler(IMessage message)
         {
             try
             {
-                var context = this.dependency.Resolve<IMainContex>();
+                var context = this.dependency.Resolve<IMainContext>();
                 context.SetProcess(this);
-                promise.Response(promise.Wait ? await this.Child.Receive(promise.Message)(context) : Unit.Default);
+                message.Response(await this.Child.Receive(message.Payload)(context));
             }
             catch (Exception e)
             {

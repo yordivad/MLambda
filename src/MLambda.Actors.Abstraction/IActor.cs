@@ -18,18 +18,11 @@ namespace MLambda.Actors.Abstraction
     using System;
 
     /// <summary>
-    /// The Rule delegate.
+    /// The Behavior delegate.
     /// </summary>
     /// <param name="context">the context.</param>
     /// <returns>The response.</returns>
-    public delegate IObservable<object> Behaivor(IContext context);
-
-    /// <summary>
-    /// The match delegate.
-    /// </summary>
-    /// <param name="message">the message to match.</param>
-    /// <returns>The rule to apply the match.</returns>
-    public delegate Behaivor Match(object message);
+    public delegate IObservable<object> Behavior(IContext context);
 
     /// <summary>
     /// The actor interface.
@@ -37,8 +30,10 @@ namespace MLambda.Actors.Abstraction
     public interface IActor
     {
         /// <summary>
-        /// Gets the receives match.
+        /// Receives the message.
         /// </summary>
-        Match Receive { get; }
+        /// <param name="data">the data.</param>
+        /// <returns>The match rules.</returns>
+        Behavior Receive(object data);
     }
 }

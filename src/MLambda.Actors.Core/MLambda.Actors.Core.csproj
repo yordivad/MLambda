@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.1" />
+      <PackageReference Include="System.Reactive" Version="4.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MLambda.Actors.Abstraction\MLambda.Actors.Abstraction.csproj" />
+      <ProjectReference Include="..\MLambda.Actors.MailBox\MLambda.Actors.MailBox.csproj" />
+      <ProjectReference Include="..\MLambda.Actors\MLambda.Actors.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="..\..\stylecop.json">
+        <Link>stylecop.json</Link>
+      </AdditionalFiles>
+    </ItemGroup>
+
+</Project>

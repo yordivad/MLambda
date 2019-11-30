@@ -10,10 +10,18 @@ namespace MLambda.Actors.Test.Specimen
     /// </summary>
     public class ConsoleActor : IActor
     {
-        /// <summary>
-        /// Gets the receive match.
-        /// </summary>
-        public Match Receive => data =>
+        private IObservable<string> Sum(IContext context, string a, string b)
+        {
+            return Observable.Return(a + b);
+        }
+
+        private IObservable<Unit> Print(string message)
+        {
+            Console.WriteLine(message);
+            return Actor.Done;
+        }
+
+        public Behavior Receive(object data) =>
             data switch
             {
                 (string a, string b) => Actor.Behavior(Sum, a, b),
@@ -21,16 +29,5 @@ namespace MLambda.Actors.Test.Specimen
                 string message => Actor.Behavior(this.Print, message),
                 _ => Actor.Ignore
             };
-
-        private IObservable<string> Sum(IContext context, string a, string b)
-        {
-            return Observable.Return(a + b);
-        }
-
-        private IObservable<Unit> Print(IContext context, string message)
-        {
-            Console.WriteLine(message);
-            return Observable.Return(Unit.Default);
-        }
     }
 }

@@ -43,8 +43,8 @@ namespace MLambda.Actors.Abstraction
         /// <summary>
         /// Setups the actors.
         /// </summary>
-        /// <param name="parentActor">the parent actor.</param>
+        /// <param name="process">the parent actor.</param>
         /// <param name="childActor">the child actor.</param>
-        void Setup(IProcess parentActor, IActor childActor);
+        void Setup(IProcess process, IActor childActor);
     }
 }

@@ -13,17 +13,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Reactive;
-using MLambda.Actors.Annotation;
-using MLambda.Actors.Guardian.Messages;
-
 namespace MLambda.Actors.Guardian
 {
     using System;
     using System.Reactive.Linq;
-    using System.Reactive.Observable.Aliases;
-    using Actors.Abstraction;
+    using MLambda.Actors.Abstraction;
     using MLambda.Actors.Annotation;
+    using MLambda.Actors.Guardian.Messages;
 
     /// <summary>
     /// The system actor class.
@@ -31,24 +27,22 @@ namespace MLambda.Actors.Guardian
     [Address("")]
     public class RootActor : IActor
     {
-        private IObservable<Unit> Start(IContext context)
-        {
-            return context.Spawn<UserActor>().FlatMap(address => address.Send(new StartMessage()));
-        }
+        /// <summary>
+        /// Receives the message.
+        /// </summary>
+        /// <param name="data">the data.</param>
+        /// <returns>the behavior.</returns>
+        public Behavior Receive(object data) =>
+            data switch
+            {
+                StartMessage _ => Actor.Behavior(this.Data),
+                StopMessage _ => Actor.Behavior(this.Data),
+                _ => Actor.Ignore
+            };
 
         private IObservable<int> Data(IContext context)
         {
             return Observable.Return(1);
         }
-
-        public Match Receive => data =>
-            data switch
-            {
-                StartMessage _ => Actor.Behavior(this.Start),
-                StopMessage _ => Actor.Behavior(this.Data),
-                _ => Actor.Ignore
-            };
     }
-
-
 }

@@ -20,30 +20,28 @@ namespace MLambda.Actors
     using System.Reactive.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Actors.Abstraction;
+    using MLambda.Actors.Abstraction;
 
     /// <summary>
     /// The dispatcher of the Actor.
     /// </summary>
-    /// <typeparam name="T">The type of the actor.</typeparam>
-    public class Scheduler<T> : IScheduler
-        where T : IActor
+    public class Scheduler : IScheduler
     {
         private readonly Thread consumer;
 
         private readonly CancellationTokenSource cancellation;
 
-        private Func<Promise, Task> observer;
+        private Func<IMessage, Task> observer;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Scheduler{T}"/> class.
+        /// Initializes a new instance of the <see cref="Scheduler"/> class.
         /// </summary>
         /// <param name="mailBox">the mailbox.</param>
         public Scheduler(IMailBox mailBox)
         {
             this.MailBox = mailBox;
             this.cancellation = new CancellationTokenSource();
-            this.consumer = new Thread(this.Consume);
+            this.consumer = new Thread(this.Consume) { IsBackground = true };
         }
 
         /// <summary>
@@ -57,7 +55,7 @@ namespace MLambda.Actors
         /// <returns>The response.</returns>
         public IObservable<Unit> Start()
         {
-            this.consumer.Start(this.cancellation.Token);
+            this.consumer.Start();
             return Observable.Return(Unit.Default);
         }
 
@@ -75,20 +73,17 @@ namespace MLambda.Actors
         /// Subscribes the notification.
         /// </summary>
         /// <param name="notify">the observer.</param>
-        public void Subscribe(Func<Promise, Task> notify)
+        public void Subscribe(Func<IMessage, Task> notify)
         {
             this.observer = notify;
         }
 
-        private async void Consume()
+        private void Consume()
         {
             while (!this.cancellation.IsCancellationRequested)
             {
                 var message = this.MailBox.Take();
-                if (this.observer != null)
-                {
-                    await this.observer(message);
-                }
+                this.observer?.Invoke(message);
             }
         }
     }

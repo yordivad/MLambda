@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserActor.cs" company="MLambda">
+// <copyright file="Asynchronous.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,26 +13,36 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Guardian
+namespace MLambda.Actors.Communication
 {
     using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Annotation;
 
     /// <summary>
-    /// The user actor class.
+    /// The Asynchronous message.
     /// </summary>
-    [Address("user")]
-    public class UserActor : IActor
+    public class Asynchronous : IMessage
     {
         /// <summary>
-        /// Receives the message.
+        /// Initializes a new instance of the <see cref="Asynchronous"/> class.
         /// </summary>
-        /// <param name="data">the data.</param>
-        /// <returns>the behavior.</returns>
-        public Behavior Receive(object data) =>
-            data switch
-            {
-                _ => Actor.Ignore
-            };
+        /// <param name="payload">The payload.</param>
+        public Asynchronous(object payload)
+        {
+            this.Payload = payload;
+        }
+
+        /// <summary>
+        /// Gets the message.
+        /// </summary>
+        public object Payload { get; }
+
+        /// <summary>
+        /// Responses to the observable.
+        /// </summary>
+        /// <param name="response">the response.</param>
+        public void Response(object response)
+        {
+            ////Ignoring the response.
+        }
     }
 }

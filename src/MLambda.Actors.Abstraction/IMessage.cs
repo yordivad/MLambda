@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserActor.cs" company="MLambda">
+// <copyright file="IMessage.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,26 +13,22 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Guardian
+namespace MLambda.Actors.Abstraction
 {
-    using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Annotation;
-
     /// <summary>
-    /// The user actor class.
+    /// The message interface.
     /// </summary>
-    [Address("user")]
-    public class UserActor : IActor
+    public interface IMessage
     {
         /// <summary>
-        /// Receives the message.
+        /// Gets the payload of the message.
         /// </summary>
-        /// <param name="data">the data.</param>
-        /// <returns>the behavior.</returns>
-        public Behavior Receive(object data) =>
-            data switch
-            {
-                _ => Actor.Ignore
-            };
+        object Payload { get; }
+
+        /// <summary>
+        /// The response of the message.
+        /// </summary>
+        /// <param name="response">the response.</param>
+        void Response(object response);
     }
 }
