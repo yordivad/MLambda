@@ -13,5 +13,8 @@ else
 	dotnet cake build.cake --target=check
 endif
 
+coverage:	
+	./codecov  -t $(CODECOV_TOKEN)
+
 docs:
 	@echo 'making the docs.'
