@@ -1,7 +1,7 @@
-mode: Mainline
-next-version: 1.0.0
-continuous-delivery-fallback-tag: ''
 assembly-versioning-scheme: MajorMinor
+mode: Mainline
+continuous-delivery-fallback-tag: ''
+next-version: 1.0.0
 branches:
   master:
     mode: ContinuousDeployment
@@ -10,3 +10,12 @@ branches:
   develop:
     mode: ContinuousDeployment
     tag: beta
+  feature:
+    mode: ContinuousDeployment
+    tag: alpha.{BranchName}
+  pull-request:
+    mode: ContinuousDeployment
+    tag: pr
+ignore:
+  sha: []
+merge-message-formats: {}
