@@ -8,7 +8,7 @@ var solution = Argument("solution", "MLambda.sln");
 var artifacts = Argument("artifacts", "./.artifacts");
 var sonarKey = EnvironmentVariable("SONARKEY") ?? "";
 var ApiKey = EnvironmentVariable("APIKEY") ?? "";
-var branch = EnvironmentVariable("BRANCH") ?? "master";
+var branch = EnvironmentVariable("TRAVIS_BRANCH") ?? "master";
 var version = "0.0.1";
 
 
