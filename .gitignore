@@ -336,3 +336,5 @@ ASALocalRun/
 .tools/
 
 tools/
+
+codecov
