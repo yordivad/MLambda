@@ -334,3 +334,5 @@ ASALocalRun/
 .sonarqube/
 
 .tools/
+
+tools/

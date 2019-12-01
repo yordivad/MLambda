@@ -17,10 +17,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLambda.Actors.Core", "src\MLambda.Actors.Core\MLambda.Actors.Core.csproj", "{B731F9AC-AF25-4D01-93EE-DB5C18B5CFB5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B550B925-4981-479C-8BB0-6D786DE0F045}"
+ProjectSection(SolutionItems) = preProject
+	docs\README.md = docs\README.md
+	docs\index.html = docs\index.html
+EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{23217F20-823C-41C9-8CD3-12AA6BD1BEEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLambda.Actors.HelloWorld", "examples\MLambda.Actors.HelloWorld\MLambda.Actors.HelloWorld.csproj", "{8826E935-965C-437C-BFCE-B7DA95124B3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{FD1E466C-FF16-4E43-8B16-68D35BD0BC33}"
+ProjectSection(SolutionItems) = preProject
+	build\Dockerfile = build\Dockerfile
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,12 @@
+mode: Mainline
+next-version: 1.0.0
+continuous-delivery-fallback-tag: ''
+assembly-versioning-scheme: MajorMinor
+branches:
+  master:
+    mode: ContinuousDeployment
+    tag: ''
+    increment: Minor
+  develop:
+    mode: ContinuousDeployment
+    tag: beta
