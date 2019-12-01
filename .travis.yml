@@ -15,6 +15,5 @@ before_install:
     - export PATH=$PATH:~/.dotnet/tools
     - chmod +x build.sh
     - dotnet gitversion
-    
-    
+
 script: ./build.sh
