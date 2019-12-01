@@ -14,7 +14,7 @@ else
 endif
 
 coverage:	
-	./codecov  -t $(CODECOV_TOKEN)
+	./codecov  -t $(MLAMBDA_TOKEN)
 
 docs:
 	@echo 'making the docs.'
