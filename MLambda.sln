@@ -28,7 +28,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLambda.Actors.HelloWorld",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{FD1E466C-FF16-4E43-8B16-68D35BD0BC33}"
 ProjectSection(SolutionItems) = preProject
-	build\Dockerfile = build\Dockerfile
+	Dockerfile = Dockerfile
+	build.cake = build.cake
+	build.sh = build.sh
+	Makefile = Makefile
+	cake.config = cake.config
+	GitVersion.yml = GitVersion.yml
+	stylecop.json = stylecop.json
+	README.md = README.md
+	LICENSE = LICENSE
+	.travis.yml = .travis.yml
+	.editorconfig = .editorconfig
+	
 EndProjectSection
 EndProject
 Global
