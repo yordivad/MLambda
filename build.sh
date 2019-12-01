@@ -2,6 +2,10 @@
 
 #Install 
 
-make build || (echo "the build  failed $$?"; exit 1)
+set -e
 
-make docs || (echo "the documentation failed $$?"; exit 1)
+make build
+
+make coverage
+
+make docs

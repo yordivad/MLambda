@@ -1,10 +1,17 @@
 #Makefile
 
-.PHONY: help
+.PHONY: all
+
+all: 
+	@echo ""
 
 build:
+
+ifeq ($(TRAVIS_PULL_REQUEST), false)
 	dotnet cake build.cake
-	./codecov  -t $(CODECOV_TOKEN)
-	
+else
+	dotnet cake build.cake --target=check
+endif
+
 docs:
 	@echo 'making the docs.'

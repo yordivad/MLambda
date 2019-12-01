@@ -8,7 +8,7 @@ var solution = Argument("solution", "MLambda.sln");
 var artifacts = Argument("artifacts", "./.artifacts");
 var sonarKey = EnvironmentVariable("SONARKEY") ?? "";
 var ApiKey = EnvironmentVariable("APIKEY") ?? "";
-var branch = EnvironmentVariable("BRANCH") ?? "master";
+var branch = EnvironmentVariable("TRAVIS_BRANCH") ?? "master";
 var version = "0.0.1";
 
 
@@ -75,10 +75,11 @@ Task("version").Does(() => {
         Information("version error {0}", e.Message);
     }
   
-    Information(version);
 });
 
+
 Task("pack").Does(() => {
+    
       var settings = new DotNetCorePackSettings
          {
             ArgumentCustomization = 
@@ -144,15 +145,10 @@ Task("default")
         .IsDependentOn("pack")
         .IsDependentOn("push");
         
-Task("compile")
-        .IsDependentOn("clean")
-        .IsDependentOn("restore")
-        .IsDependentOn("build");
-        
-Task("verify")
+Task("check")
         .IsDependentOn("clean")
         .IsDependentOn("restore")
         .IsDependentOn("build")
         .IsDependentOn("test");
-             
+        
 RunTarget(target);
