@@ -9,6 +9,7 @@ echo "installing code coverage"
 curl -s https://codecov.io/bash > codecov
 chmod +x codecov
 
+
 # Installing dotnet tools
 echo "installing dotnet tools"
 dotnet tool install -g Cake.Tool || echo "skip"
