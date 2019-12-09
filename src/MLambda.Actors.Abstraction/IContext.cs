@@ -25,7 +25,7 @@ namespace MLambda.Actors.Abstraction
         /// <summary>
         /// Creates the actor proxy.
         /// </summary>
-        /// <typeparam name="T">The type of the actor</typeparam>
+        /// <typeparam name="T">The type of the actor.</typeparam>
         /// <returns>The actor proxy.</returns>
         IObservable<IAddress> Spawn<T>()
             where T : IActor;

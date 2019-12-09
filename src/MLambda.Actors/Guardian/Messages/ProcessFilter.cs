@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserActor.cs" company="MLambda">
+// <copyright file="ProcessFilter.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,27 +13,25 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Guardian
+namespace MLambda.Actors.Guardian.Messages
 {
-    using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Annotation;
-    using MLambda.Actors.Abstraction.Guardian;
-
     /// <summary>
-    /// The user actor class.
+    /// Process Filter class.
     /// </summary>
-    [Route("user")]
-    public class UserActor : IUserActor
+    public class ProcessFilter
     {
         /// <summary>
-        /// Receives the message.
+        /// Initializes a new instance of the <see cref="ProcessFilter"/> class.
         /// </summary>
-        /// <param name="data">the data.</param>
-        /// <returns>the behavior.</returns>
-        public Behavior Receive(object data) =>
-            data switch
-            {
-                _ => Actor.Ignore
-            };
+        /// <param name="route">The filter.</param>
+        public ProcessFilter(string route)
+        {
+            this.Route = route;
+        }
+
+        /// <summary>
+        /// Gets the filter.
+        /// </summary>
+        public string Route { get; }
     }
 }

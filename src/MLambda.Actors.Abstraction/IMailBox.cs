@@ -15,11 +15,18 @@
 
 namespace MLambda.Actors.Abstraction
 {
+    using System;
+
     /// <summary>
     /// The mailbox of the actors.
     /// </summary>
     public interface IMailBox
     {
+        /// <summary>
+        /// Gets the id.
+        /// </summary>
+        Guid Id { get; }
+
         /// <summary>
         /// Push the message in the mail box.
         /// </summary>

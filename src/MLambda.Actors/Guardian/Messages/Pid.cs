@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StopMessage.cs" company="MLambda">
+// <copyright file="Pid.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -15,10 +15,39 @@
 
 namespace MLambda.Actors.Guardian.Messages
 {
+    using System;
+
     /// <summary>
-    /// The stop message class.
+    /// The process id.
     /// </summary>
-    public class StopMessage
+    public class Pid
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pid"/> class.
+        /// </summary>
+        /// <param name="id">the id.</param>
+        /// <param name="route">the route.</param>
+        /// <param name="status">the status.</param>
+        public Pid(Guid id, string route, string status)
+        {
+            this.Id = id;
+            this.Route = route;
+            this.Status = status;
+        }
+
+        /// <summary>
+        /// Gets the id.
+        /// </summary>
+        public Guid Id { get; }
+
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        public string Status { get;  }
+
+        /// <summary>
+        /// Gets the route.
+        /// </summary>
+        public string Route { get; }
     }
 }

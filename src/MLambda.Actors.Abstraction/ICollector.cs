@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserActor.cs" company="MLambda">
+// <copyright file="ICollector.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,27 +13,19 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Guardian
+namespace MLambda.Actors.Abstraction
 {
-    using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Annotation;
-    using MLambda.Actors.Abstraction.Guardian;
+    using System;
 
     /// <summary>
-    /// The user actor class.
+    /// The actor collectors interface.
     /// </summary>
-    [Route("user")]
-    public class UserActor : IUserActor
+    public interface ICollector
     {
         /// <summary>
-        /// Receives the message.
+        /// Collects the actors that has the id.
         /// </summary>
-        /// <param name="data">the data.</param>
-        /// <returns>the behavior.</returns>
-        public Behavior Receive(object data) =>
-            data switch
-            {
-                _ => Actor.Ignore
-            };
+        /// <param name="id">the actors identity.</param>
+        void Collect(Guid id);
     }
 }

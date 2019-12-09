@@ -4,6 +4,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <IsPackable>false</IsPackable>
+        <RunCodeAnalysis>true</RunCodeAnalysis>
     </PropertyGroup>
 
     <ItemGroup>

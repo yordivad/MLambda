@@ -50,6 +50,16 @@ namespace MLambda.Actors
         public IMailBox MailBox { get; }
 
         /// <summary>
+        /// Gets a value indicating whether gets the running flag.
+        /// </summary>
+        public bool IsRunning => true;
+
+        /// <summary>
+        /// Gets the id.
+        /// </summary>
+        public Guid Id => this.MailBox.Id;
+
+        /// <summary>
         /// Starts the mailbox dispatcher.
         /// </summary>
         /// <returns>The response.</returns>

@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserActor.cs" company="MLambda">
+// <copyright file="RouteAttribute.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,27 +13,28 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Guardian
+namespace MLambda.Actors.Abstraction.Annotation
 {
-    using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Annotation;
-    using MLambda.Actors.Abstraction.Guardian;
+    using System;
 
     /// <summary>
-    /// The user actor class.
+    /// The address attribute.
     /// </summary>
-    [Route("user")]
-    public class UserActor : IUserActor
+    [AttributeUsage(AttributeTargets.Class)]
+    public class RouteAttribute : Attribute
     {
         /// <summary>
-        /// Receives the message.
+        /// Initializes a new instance of the <see cref="RouteAttribute"/> class.
         /// </summary>
-        /// <param name="data">the data.</param>
-        /// <returns>the behavior.</returns>
-        public Behavior Receive(object data) =>
-            data switch
-            {
-                _ => Actor.Ignore
-            };
+        /// <param name="name">The name.</param>
+        public RouteAttribute(string name)
+        {
+            this.Name = name;
+        }
+
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        public string Name { get; }
     }
 }

@@ -15,6 +15,7 @@
 
 namespace MLambda.Actors.MailBox
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -34,9 +35,15 @@ namespace MLambda.Actors.MailBox
         /// </summary>
         public MailBox()
         {
+            this.Id = Guid.NewGuid();
             this.locker = new object();
             this.messages = new Queue<IMessage>();
         }
+
+        /// <summary>
+        /// Gets the id.
+        /// </summary>
+        public Guid Id { get; }
 
         /// <summary>
         /// Add the message to the mailbox.

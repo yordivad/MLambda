@@ -28,14 +28,23 @@ namespace MLambda.Actors
     {
         private readonly IMailBox mailBox;
 
+        private readonly ICollector collector;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Address"/> class.
         /// </summary>
         /// <param name="mailBox">the mail box.</param>
-        public Address(IMailBox mailBox)
+        /// <param name="collector">the actor collector.</param>
+        public Address(IMailBox mailBox, ICollector collector)
         {
             this.mailBox = mailBox;
+            this.collector = collector;
         }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Address"/> class.
+        /// </summary>
+        ~Address() => this.Dispose(false);
 
         /// <summary>
         /// Tells to the actor the message.
@@ -62,6 +71,27 @@ namespace MLambda.Actors
             var future = new Asynchronous(message);
             this.mailBox.Add(future);
             return Observable.Return(Unit.Default);
+        }
+
+        /// <summary>
+        /// Disposed the actor.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Disposed the actor model.
+        /// </summary>
+        /// <param name="disposing">disposing the actor.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.collector.Collect(this.mailBox.Id);
+            }
         }
     }
 }

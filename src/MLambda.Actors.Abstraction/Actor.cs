@@ -13,13 +13,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors
+namespace MLambda.Actors.Abstraction
 {
     using System;
     using System.Reactive;
     using System.Reactive.Linq;
     using System.Reactive.Observable.Aliases;
-    using MLambda.Actors.Abstraction;
 
     /// <summary>
     /// The actor implementation.

@@ -16,17 +16,32 @@
 namespace MLambda.Actors.Guardian
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reactive;
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Annotation;
+    using MLambda.Actors.Abstraction.Annotation;
+    using MLambda.Actors.Abstraction.Guardian;
     using MLambda.Actors.Guardian.Messages;
 
     /// <summary>
     /// The system actor class.
     /// </summary>
-    [Address("")]
-    public class RootActor : IActor
+    [Route("")]
+    public class RootActor : IRootActor
     {
+        private readonly IBucket bucket;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RootActor"/> class.
+        /// </summary>
+        /// <param name="bucket">the bucket.</param>
+        public RootActor(IBucket bucket)
+        {
+            this.bucket = bucket;
+        }
+
         /// <summary>
         /// Receives the message.
         /// </summary>
@@ -35,14 +50,31 @@ namespace MLambda.Actors.Guardian
         public Behavior Receive(object data) =>
             data switch
             {
-                StartMessage _ => Actor.Behavior(this.Data),
-                StopMessage _ => Actor.Behavior(this.Data),
+                Kill message => Actor.Behavior(this.Kill, message),
+                ProcessCount _ => Actor.Behavior(this.Count),
+                ProcessFilter message => Actor.Behavior(this.Filter, message),
                 _ => Actor.Ignore
             };
 
-        private IObservable<int> Data(IContext context)
+        private IObservable<int> Count()
         {
-            return Observable.Return(1);
+            return this.bucket.Count();
+        }
+
+        private IObservable<IEnumerable<Pid>> Filter(ProcessFilter filter)
+        {
+            if (filter.Route == "*")
+            {
+                return Observable.Return(this.bucket.Filter(c => true).Select(c => new Pid(c.Id, c.Route, c.Status)));
+            }
+
+            return Observable.Return(this.bucket.Filter(c => c.Route == filter.Route)
+                .Select(c => new Pid(c.Id, c.Route, c.Status)));
+        }
+
+        private IObservable<Unit> Kill(Kill message)
+        {
+          return this.bucket.Release(message.Id);
         }
     }
 }

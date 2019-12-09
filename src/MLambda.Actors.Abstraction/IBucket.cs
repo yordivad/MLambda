@@ -15,6 +15,10 @@
 
 namespace MLambda.Actors.Abstraction
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reactive;
+
     /// <summary>
     /// The actor container.
     /// </summary>
@@ -38,5 +42,25 @@ namespace MLambda.Actors.Abstraction
         /// <returns>The address of the actor.</returns>
         IAddress Spawn<T>(IProcess parent)
             where T : IActor;
+
+        /// <summary>
+        /// Releases the actor.
+        /// </summary>
+        /// <param name="id">the id.</param>
+        /// <returns>The response.</returns>
+        IObservable<Unit> Release(Guid id);
+
+        /// <summary>
+        /// Process filter.
+        /// </summary>
+        /// <param name="filter">the filter.</param>
+        /// <returns>The collection of the process.</returns>
+        IEnumerable<IProcess> Filter(Func<IProcess, bool> filter);
+
+        /// <summary>
+        /// Counts the actors.
+        /// </summary>
+        /// <returns>The count of the actor.</returns>
+        IObservable<int> Count();
     }
 }

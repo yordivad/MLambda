@@ -15,15 +15,22 @@
 
 namespace MLambda.Actors.Abstraction
 {
+    using System;
+
     /// <summary>
     /// The process interfaces.
     /// </summary>
     public interface IProcess
     {
         /// <summary>
+        /// Gets the unique id.
+        /// </summary>
+        Guid Id { get; }
+
+        /// <summary>
         /// Gets the path.
         /// </summary>
-        string Id { get; }
+        string Route { get; }
 
         /// <summary>
         /// Gets the address.
@@ -41,10 +48,20 @@ namespace MLambda.Actors.Abstraction
         IActor Child { get; }
 
         /// <summary>
+        /// Gets the status.
+        /// </summary>
+        string Status { get; }
+
+        /// <summary>
         /// Setups the actors.
         /// </summary>
         /// <param name="process">the parent actor.</param>
         /// <param name="childActor">the child actor.</param>
         void Setup(IProcess process, IActor childActor);
+
+        /// <summary>
+        /// Stop the process.
+        /// </summary>
+        void Stop();
     }
 }

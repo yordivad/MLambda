@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddressAttribute.cs" company="MLambda">
+// <copyright file="Collector.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,28 +13,35 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Annotation
+namespace MLambda.Actors
 {
     using System;
+    using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Guardian.Messages;
 
     /// <summary>
-    /// The address attribute.
+    /// The collector class.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public class AddressAttribute : Attribute
+    public class Collector : ICollector
     {
+        private readonly IRootContext root;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="AddressAttribute"/> class.
+        /// Initializes a new instance of the <see cref="Collector"/> class.
         /// </summary>
-        /// <param name="name">The name.</param>
-        public AddressAttribute(string name)
+        /// <param name="root">the root context.</param>
+        public Collector(IRootContext root)
         {
-            this.Name = name;
+            this.root = root;
         }
 
         /// <summary>
-        /// Gets the name.
+        /// Collects the actors.
         /// </summary>
-        public string Name { get; }
+        /// <param name="id">the id.</param>
+        public void Collect(Guid id)
+        {
+            this.root.Self.Send(new Kill(id));
+        }
     }
 }

@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserActor.cs" company="MLambda">
+// <copyright file="ProcessCount.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,27 +13,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Guardian
+namespace MLambda.Actors.Guardian.Messages
 {
-    using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Annotation;
-    using MLambda.Actors.Abstraction.Guardian;
-
     /// <summary>
-    /// The user actor class.
+    /// The process count class.
     /// </summary>
-    [Route("user")]
-    public class UserActor : IUserActor
+    public class ProcessCount
     {
-        /// <summary>
-        /// Receives the message.
-        /// </summary>
-        /// <param name="data">the data.</param>
-        /// <returns>the behavior.</returns>
-        public Behavior Receive(object data) =>
-            data switch
-            {
-                _ => Actor.Ignore
-            };
     }
 }

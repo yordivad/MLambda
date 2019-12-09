@@ -1,14 +1,26 @@
-﻿using System;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using MLambda.Actors.Abstraction;
-using MLambda.Actors.Core;
+﻿// <copyright file="Program.cs" company="MLambda">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace MLambda.Actors.HelloWorld
 {
-    public class Program
+    using System;
+    using System.Reactive.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.DependencyInjection;
+    using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Core;
+
+    /// <summary>
+    /// The program class.
+    /// </summary>
+    public static class Program
     {
+       /// <summary>
+       /// The main.
+       /// </summary>
+       /// <param name="args">the arguments.</param>
+       /// <returns>The async response.</returns>
        public static async Task Main(string[] args)
         {
             var services = new ServiceCollection();

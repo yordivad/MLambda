@@ -1,8 +1,7 @@
-using System;
-using System.Reactive.Linq;
-
 namespace MLambda.Actors.Test.Steps
 {
+    using System;
+    using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
     using MLambda.Actors.Test.Specimen;
     using TechTalk.SpecFlow;

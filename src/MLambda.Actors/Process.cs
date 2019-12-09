@@ -20,7 +20,7 @@ namespace MLambda.Actors
     using System.Reflection;
     using System.Threading.Tasks;
     using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Annotation;
+    using MLambda.Actors.Abstraction.Annotation;
 
     /// <summary>
     /// The process class.
@@ -30,6 +30,8 @@ namespace MLambda.Actors
         private readonly IScheduler scheduler;
 
         private readonly IDependency dependency;
+
+        private readonly ICollector collector;
 
         private string path;
 
@@ -45,6 +47,8 @@ namespace MLambda.Actors
         {
             this.dependency = dependency;
             this.scheduler = this.dependency.Resolve<IScheduler>();
+            this.collector = this.dependency.Resolve<ICollector>();
+            this.Id = this.scheduler.Id;
             this.scheduler.Subscribe(this.Handler);
             this.scheduler.Start();
         }
@@ -60,18 +64,28 @@ namespace MLambda.Actors
         public IActor Child { get; private set; }
 
         /// <summary>
+        /// Gets the status.
+        /// </summary>
+        public string Status => this.scheduler.IsRunning ? "run" : "stop";
+
+        /// <summary>
+        /// Gets the id.
+        /// </summary>
+        public Guid Id { get; }
+
+        /// <summary>
         /// Gets the path.
         /// </summary>
-        public string Id => this.path ??= this.parentId.EndsWith("/")
+        public string Route => this.path ??= this.parentId.EndsWith("/")
             ? $"{this.parentId}{this.ChildId}"
             : $"{this.parentId}/{this.ChildId}";
 
         /// <summary>
         /// Gets the address.
         /// </summary>
-        public IAddress Address => this.address ??= new Address(this.scheduler.MailBox);
+        public IAddress Address => this.address ??= new Address(this.scheduler.MailBox, this.collector);
 
-        private string ChildId => this.Child.GetType().GetCustomAttribute<AddressAttribute>()?.Name ??
+        private string ChildId => this.Child.GetType().GetCustomAttribute<RouteAttribute>()?.Name ??
                                   this.Child.GetType().Name;
 
         /// <summary>
@@ -81,9 +95,17 @@ namespace MLambda.Actors
         /// <param name="childActor">the child actor.</param>
         public void Setup(IProcess process, IActor childActor)
         {
-            this.parentId = process?.Id ?? string.Empty;
+            this.parentId = process?.Route ?? string.Empty;
             this.Parent = process?.Child;
             this.Child = childActor;
+        }
+
+        /// <summary>
+        /// Stops the scheduler.
+        /// </summary>
+        public void Stop()
+        {
+            this.scheduler.Stop();
         }
 
         private async Task Handler(IMessage message)

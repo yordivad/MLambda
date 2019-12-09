@@ -1,9 +1,12 @@
-using System.Threading.Tasks;
+// <copyright file="HelloWorld.cs" company="MLambda">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace MLambda.Actors.HelloWorld
 {
     using System;
     using System.Reactive;
+    using System.Threading.Tasks;
     using MLambda.Actors.Abstraction;
 
     public class HelloWorld : IActor
@@ -18,7 +21,7 @@ namespace MLambda.Actors.HelloWorld
         public Behavior Receive(object data) =>
             data switch
             {
-                string message => Actor.Behavior(Show, message),
+                string message => Actor.Behavior(this.Show, message),
                 _ => Actor.Ignore
             };
     }

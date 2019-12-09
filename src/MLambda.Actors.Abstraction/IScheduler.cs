@@ -30,6 +30,16 @@ namespace MLambda.Actors.Abstraction
         IMailBox MailBox { get; }
 
         /// <summary>
+        /// Gets the running flag.
+        /// </summary>
+        bool IsRunning { get;  }
+
+        /// <summary>
+        /// Gets the id.
+        /// </summary>
+        Guid Id { get; }
+
+        /// <summary>
         /// Subscribes the notification.
         /// </summary>
         /// <param name="notify">the method to notify.</param>

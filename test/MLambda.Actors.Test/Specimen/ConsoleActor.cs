@@ -1,3 +1,5 @@
+using MLambda.Actors.Abstraction.Annotation;
+
 namespace MLambda.Actors.Test.Specimen
 {
     using System;
@@ -8,6 +10,7 @@ namespace MLambda.Actors.Test.Specimen
     /// <summary>
     /// The console actor.
     /// </summary>
+    [Route("console")]
     public class ConsoleActor : IActor
     {
         private IObservable<string> Sum(IContext context, string a, string b)

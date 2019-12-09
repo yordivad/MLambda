@@ -49,7 +49,7 @@ namespace MLambda.Actors.Communication
         /// <returns>The response.</returns>
         public IObservable<TO> ToObservable<TO>()
         {
-            return Observable.FromAsync(async () => (TO)await this.callback.Task);
+            return Observable.Return((TO)this.callback.Task.Result);
         }
 
         /// <summary>

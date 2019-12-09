@@ -21,7 +21,7 @@ namespace MLambda.Actors.Abstraction
     /// <summary>
     /// The actor proxy.
     /// </summary>
-    public interface IAddress
+    public interface IAddress : IDisposable
     {
         /// <summary>
         /// Tells the message to the actor.

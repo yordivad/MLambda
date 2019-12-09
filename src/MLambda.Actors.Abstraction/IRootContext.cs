@@ -23,6 +23,11 @@ namespace MLambda.Actors.Abstraction
     public interface IRootContext
     {
         /// <summary>
+        /// Gets the root actor.
+        /// </summary>
+        IAddress Self { get; }
+
+        /// <summary>
         /// Spawns actors.
         /// </summary>
         /// <typeparam name="T">The type of the actor.</typeparam>

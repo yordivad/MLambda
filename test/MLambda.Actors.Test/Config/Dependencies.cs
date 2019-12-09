@@ -1,3 +1,7 @@
+// <copyright file="/home/roy/workspace/MLambda/test/MLambda.Actors.Test/Config/Dependencies.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using MLambda.Actors.Core;
 
 namespace MLambda.Actors.Test.Config
@@ -10,7 +14,6 @@ namespace MLambda.Actors.Test.Config
     using MLambda.Actors.Test.Specimen;
     using SpecFlow.Autofac;
     using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Configuration.JsonConfig;
 
     /// <summary>
     /// The dependencies class.
@@ -35,6 +38,7 @@ namespace MLambda.Actors.Test.Config
             builder.RegisterTypes(typeof(Dependencies).Assembly.GetTypes()
                 .Where(t => Attribute.IsDefined(t, typeof(BindingAttribute))).ToArray()).SingleInstance();
 
+            builder.RegisterInstance(provider.GetService<IRootContext>());
             return builder;
         }
     }

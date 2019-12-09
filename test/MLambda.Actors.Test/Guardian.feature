@@ -5,6 +5,8 @@ Feature: In order to provide Guardians
     When Send a Stop Message
     When Send a Not Valid Message
     Then Verify it Handle the message
+      
+     
 
 
   Scenario: User Guardian
@@ -12,3 +14,5 @@ Feature: In order to provide Guardians
     When Send a Stop Message
     When Send a Not Valid Message
     Then Verify it Handle the message
+      
+Scenario: User Guard

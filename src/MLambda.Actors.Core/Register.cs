@@ -17,6 +17,7 @@ namespace MLambda.Actors.Core
 {
     using Microsoft.Extensions.DependencyInjection;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Guardian;
     using MLambda.Actors.Guardian;
 
     /// <summary>
@@ -33,8 +34,9 @@ namespace MLambda.Actors.Core
         {
             services.AddScoped<IDependency>(provider => new Dependency(provider));
             services.AddScoped<IBucket, Bucket>();
-            services.AddScoped<RootActor>();
-            services.AddScoped<UserActor>();
+            services.AddScoped<IRootActor, RootActor>();
+            services.AddScoped<IUserActor, UserActor>();
+            services.AddScoped<ICollector, Collector>();
             services.AddScoped(provider => provider.GetService<IBucket>() as IUserContext);
             services.AddScoped(provider => provider.GetService<IBucket>() as IRootContext);
             services.AddTransient<IMainContext, Context>();
