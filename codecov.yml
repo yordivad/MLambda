@@ -1,0 +1,12 @@
+codecov:
+    notify:
+        require_ci_to_pass: yes
+coverage:
+    precision: 2
+    round: down
+    range: "70...100"
+    notify:
+        gitter:
+            default:
+                url: "https://webhooks.gitter.im/e/6099366fda59722004cb"
+                threshold: 1%

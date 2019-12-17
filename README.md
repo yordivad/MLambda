@@ -2,6 +2,7 @@
 
 ## Quality Metrics
 
+[![Gitter](https://badges.gitter.im/M-Lambda/Actor.svg)](https://gitter.im/M-Lambda/Actor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 ![Mergefy](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/RoyGI/MLambda&amp;style=flat)
 [![Build Status](https://travis-ci.com/RoyGI/MLambda.svg?branch=master)](https://travis-ci.com/RoyGI/MLambda)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RoyGI_MLambda&metric=alert_status)](https://sonarcloud.io/dashboard?id=RoyGI_MLambda)
