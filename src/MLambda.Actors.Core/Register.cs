@@ -13,12 +13,16 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using MLambda.Actors.Abstraction.Context;
+using MLambda.Actors.Abstraction.Supervision;
+using MLambda.Actors.Guardian;
+using MLambda.Actors.Supervision;
+
 namespace MLambda.Actors.Core
 {
     using Microsoft.Extensions.DependencyInjection;
     using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Guardian;
-    using MLambda.Actors.Guardian;
+    using MLambda.Actors.Abstraction.Core;
 
     /// <summary>
     /// The register class for Dotnet core.
@@ -34,11 +38,13 @@ namespace MLambda.Actors.Core
         {
             services.AddScoped<IDependency>(provider => new Dependency(provider));
             services.AddScoped<IBucket, Bucket>();
-            services.AddScoped<IRootActor, RootActor>();
-            services.AddScoped<IUserActor, UserActor>();
             services.AddScoped<ICollector, Collector>();
             services.AddScoped(provider => provider.GetService<IBucket>() as IUserContext);
-            services.AddScoped(provider => provider.GetService<IBucket>() as IRootContext);
+            services.AddScoped(provider => provider.GetService<IBucket>() as ISystemContext);
+            services.AddSingleton(Strategy.OneForOne(decider => decider.Default(Directive.Resume)));
+            services.AddTransient<RootActor>();
+            services.AddTransient<SystemActor>();
+            services.AddTransient<UserActor>();
             services.AddTransient<IMainContext, Context>();
             services.AddTransient<IProcess, Process>();
             services.AddTransient<IMailBox, MailBox.MailBox>();

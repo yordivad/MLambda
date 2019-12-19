@@ -1,5 +1,6 @@
 using System.Reactive.Linq;
 using MLambda.Actors.Abstraction;
+using MLambda.Actors.Abstraction.Core;
 using MLambda.Actors.Guardian.Messages;
 using TechTalk.SpecFlow;
 
@@ -33,13 +34,13 @@ namespace MLambda.Actors.Test.Steps
         [When(@"Send a Stop Message")]
         public async void WhenSendAStopMessage()
         {
-            await this.scenario.Get<IAddress>("context").Send(new object());
+            await this.scenario.Get<ILink>("context").Send(new object());
         }
 
         [When(@"Send a Not Valid Message")]
         public async void WhenSendANotValidMessage()
         {
-            await this.scenario.Get<IAddress>("context").Send(new object());
+            await this.scenario.Get<ILink>("context").Send(new object());
         }
 
         [Then(@"Verify it Handle the message")]

@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using MLambda.Actors.Abstraction.Supervision;
+
 namespace MLambda.Actors.HelloWorld
 {
     using System;
@@ -9,16 +11,17 @@ namespace MLambda.Actors.HelloWorld
     using System.Threading.Tasks;
     using MLambda.Actors.Abstraction;
 
-    public class HelloWorld : IActor
+    public class HelloWorld : Actor
     {
-        public IObservable<Unit> Show(string message)
+        private IObservable<Unit> Show(string message)
         {
             Console.WriteLine(message);
-            Task.Delay(5000).Wait();
+            Task.Delay(500).Wait();
             return Actor.Done;
         }
 
-        public Behavior Receive(object data) =>
+
+        protected override Behavior Receive(object data) =>
             data switch
             {
                 string message => Actor.Behavior(this.Show, message),

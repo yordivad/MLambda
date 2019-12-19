@@ -16,111 +16,175 @@
 namespace MLambda.Actors
 {
     using System;
-    using System.Reactive.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
     using MLambda.Actors.Abstraction;
     using MLambda.Actors.Abstraction.Annotation;
+    using MLambda.Actors.Abstraction.Core;
+    using MLambda.Actors.Abstraction.Supervision;
 
     /// <summary>
     /// The process class.
     /// </summary>
     public class Process : IProcess
     {
-        private readonly IScheduler scheduler;
+        private readonly IBucket bucket;
 
-        private readonly IDependency dependency;
-
-        private readonly ICollector collector;
+        private LifeCycle state;
 
         private string path;
-
-        private Address address;
-
-        private string parentId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Process"/> class.
         /// </summary>
-        /// <param name="dependency">The dependency.</param>
-        public Process(IDependency dependency)
+        /// <param name="bucket">the bucket.</param>
+        /// <param name="parent">the parent job.</param>
+        /// <param name="current">the current job.</param>
+        public Process(IBucket bucket, IWorkUnit parent, IWorkUnit current)
         {
-            this.dependency = dependency;
-            this.scheduler = this.dependency.Resolve<IScheduler>();
-            this.collector = this.dependency.Resolve<ICollector>();
-            this.Id = this.scheduler.Id;
-            this.scheduler.Subscribe(this.Handler);
-            this.scheduler.Start();
+            this.bucket = bucket;
+            this.Parent = parent;
+            this.Current = current;
+            this.state = LifeCycle.Created;
         }
 
         /// <summary>
-        /// Gets the parent actor.
+        /// The lifecycle event.
         /// </summary>
-        public IActor Parent { get; private set; }
+        public delegate void LifeCycleHandler();
 
         /// <summary>
-        /// Gets the child actor.
+        /// Adds or removes events to on post stop.
         /// </summary>
-        public IActor Child { get; private set; }
+        public event LifeCycleHandler PostStop
+        {
+            add => this.OnPostStop += value;
+            remove => this.OnPostStop -= value;
+        }
+
+        private event LifeCycleHandler OnPostStop;
 
         /// <summary>
-        /// Gets the status.
+        /// The lifecycle of the process.
         /// </summary>
-        public string Status => this.scheduler.IsRunning ? "run" : "stop";
+        public enum LifeCycle
+        {
+            /// <summary>
+            /// The process is initializes.
+            /// </summary>
+            Starting,
+
+            /// <summary>
+            /// The process can receiving the message.
+            /// </summary>
+            Receiving,
+
+            /// <summary>
+            /// The process cleans up the actual state.
+            /// </summary>
+            Stopping,
+
+            /// <summary>
+            /// The process is going to restart and assign new schedulers.
+            /// </summary>
+            Restarting,
+
+            /// <summary>
+            /// The process is dead.
+            /// </summary>
+            Terminated,
+
+            /// <summary>
+            /// The new one state.
+            /// </summary>
+            Created,
+        }
 
         /// <summary>
         /// Gets the id.
         /// </summary>
-        public Guid Id { get; }
+        public Guid Id => this.Current.Id;
+
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        public string Status => Enum.GetName(typeof(LifeCycle), this.state);
+
+        /// <summary>
+        /// Gets the parent job.
+        /// </summary>
+        public IWorkUnit Parent { get; }
+
+        /// <summary>
+        /// Gets the actual job.
+        /// </summary>
+        public IWorkUnit Current { get; }
 
         /// <summary>
         /// Gets the path.
         /// </summary>
-        public string Route => this.path ??= this.parentId.EndsWith("/")
-            ? $"{this.parentId}{this.ChildId}"
-            : $"{this.parentId}/{this.ChildId}";
-
-        /// <summary>
-        /// Gets the address.
-        /// </summary>
-        public IAddress Address => this.address ??= new Address(this.scheduler.MailBox, this.collector);
-
-        private string ChildId => this.Child.GetType().GetCustomAttribute<RouteAttribute>()?.Name ??
-                                  this.Child.GetType().Name;
-
-        /// <summary>
-        /// Setups the actors.
-        /// </summary>
-        /// <param name="process">the parent actor.</param>
-        /// <param name="childActor">the child actor.</param>
-        public void Setup(IProcess process, IActor childActor)
-        {
-            this.parentId = process?.Route ?? string.Empty;
-            this.Parent = process?.Child;
-            this.Child = childActor;
-        }
+        public string Route => this.path ??= this.Parent.Name.EndsWith("/")
+            ? $"{this.Parent.Name}{this.Current.Name}"
+            : $"{this.Parent.Name}/{this.Current.Name}";
 
         /// <summary>
         /// Stops the scheduler.
         /// </summary>
         public void Stop()
         {
-            this.scheduler.Stop();
+            this.state = LifeCycle.Stopping;
+            this.Current.Stop();
+            this.OnPostStop?.Invoke();
+            this.state = LifeCycle.Terminated;
         }
 
-        private async Task Handler(IMessage message)
+        /// <summary>
+        /// Starts the actor model.
+        /// </summary>
+        public void Start()
         {
-            try
-            {
-                var context = this.dependency.Resolve<IMainContext>();
-                context.SetProcess(this);
-                message.Response(await this.Child.Receive(message.Payload)(context));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            this.state = LifeCycle.Starting;
+            this.Current.Start(this.Receive);
+            this.state = LifeCycle.Receiving;
+        }
+
+        public void Resume()
+        {
+        }
+
+        /// <summary>
+        /// Escalate the exception to the parent.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        public void Escalate(Exception exception)
+        {
+            this.Parent.Supervisor.Handle(exception, this.bucket.Parent(this));
+        }
+
+        public void Restart()
+        {
+            this.state = LifeCycle.Stopping;
+            // this.PreRestart();
+            this.state = LifeCycle.Restarting;
+            // this.PostRestart();
+            this.Start();
+        }
+
+
+
+        /// <summary>
+        /// Spawns the actor link.
+        /// </summary>
+        /// <typeparam name="T">the type of the actor.</typeparam>
+        /// <returns>The link of the actor.</returns>
+        public ILink Spawn<T>()
+            where T : IActor =>
+            this.bucket.Spawn<T>(this);
+
+
+        private async Task Receive(IMessage message)
+        {
+            await this.Current.Supervisor.Apply(message)(new Context(this));
         }
     }
 }

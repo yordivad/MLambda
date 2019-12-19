@@ -1,19 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
-        <PackageReference Include="System.Reactive" Version="4.3.1" />
-        <PackageReference Include="System.Reactive.Observable.Aliases" Version="4.3.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <AdditionalFiles Include="..\..\stylecop.json">
-            <Link>stylecop.json</Link>
-        </AdditionalFiles>
-    </ItemGroup>
-    
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\MLambda.Actors.Abstraction.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\MLambda.Actors.Abstraction.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

@@ -1,17 +1,16 @@
-using MLambda.Actors.Abstraction.Annotation;
-
 namespace MLambda.Actors.Test.Specimen
 {
     using System;
     using System.Reactive;
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Annotation;
 
     /// <summary>
     /// The console actor.
     /// </summary>
     [Route("console")]
-    public class ConsoleActor : IActor
+    public class ConsoleActor : Actor
     {
         private IObservable<string> Sum(IContext context, string a, string b)
         {
@@ -24,7 +23,7 @@ namespace MLambda.Actors.Test.Specimen
             return Actor.Done;
         }
 
-        public Behavior Receive(object data) =>
+        protected override Behavior Receive(object data) =>
             data switch
             {
                 (string a, string b) => Actor.Behavior(Sum, a, b),

@@ -16,6 +16,7 @@
 namespace MLambda.Actors.Abstraction
 {
     using System;
+    using MLambda.Actors.Abstraction.Supervision;
 
     /// <summary>
     /// The Behavior delegate.
@@ -29,6 +30,11 @@ namespace MLambda.Actors.Abstraction
     /// </summary>
     public interface IActor
     {
+        /// <summary>
+        /// Gets the supervisor strategy.
+        /// </summary>
+        ISupervisor Supervisor { get; }
+
         /// <summary>
         /// Receives the message.
         /// </summary>

@@ -1,7 +1,6 @@
  
 #module nuget:?package=Cake.DotNetTool.Module
 
-
 var target = Argument("target", "default");
 var configuration = Argument("configuration", "Release");
 var solution = Argument("solution", "MLambda.sln");
@@ -42,6 +41,7 @@ Task("analysis-end").Does(()=> {
     
     DotNetCoreTool("sonarscanner", setting);
 });
+
 
 Task("test").Does(() => {
     var setting = new DotNetCoreTestSettings{

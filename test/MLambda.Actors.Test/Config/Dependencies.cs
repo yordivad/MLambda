@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using MLambda.Actors.Abstraction.Core;
 using MLambda.Actors.Core;
 
 namespace MLambda.Actors.Test.Config
@@ -38,7 +39,7 @@ namespace MLambda.Actors.Test.Config
             builder.RegisterTypes(typeof(Dependencies).Assembly.GetTypes()
                 .Where(t => Attribute.IsDefined(t, typeof(BindingAttribute))).ToArray()).SingleInstance();
 
-            builder.RegisterInstance(provider.GetService<IRootContext>());
+            builder.RegisterInstance(provider.GetService<ISystemContext>());
             return builder;
         }
     }

@@ -30,6 +30,7 @@ namespace MLambda.Actors.HelloWorld
             var user = provider.GetService<IUserContext>();
             var hello = await user.Spawn<HelloWorld>();
             await hello.Send("Hello World");
+            await hello.Send("Other Message");
             Console.Read();
         }
     }
