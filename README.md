@@ -10,3 +10,4 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/roygi/mlambda/badge)](https://www.codefactor.io/repository/github/roygi/mlambda)
 [![GuardRails badge](https://badges.guardrails.io/RoyGI/MLambda.svg?token=92ebac5e2201973fdb72dab039abe5da63bc8427d4dda67f0b33e71a15c6f06f&provider=github)](https://dashboard.guardrails.io/default/gh/RoyGI/MLambda)
 [![DeepScan grade](https://deepscan.io/api/teams/5205/projects/8339/branches/96761/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5205&pid=8339&bid=96761)
+
