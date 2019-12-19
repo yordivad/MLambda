@@ -19,7 +19,6 @@ namespace MLambda.Actors
     using System.Reactive;
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Core;
     using MLambda.Actors.Communication;
 
     /// <summary>

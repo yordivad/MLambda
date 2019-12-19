@@ -65,8 +65,20 @@ namespace MLambda.Actors.Abstraction
         /// </summary>
         void Start();
 
+        /// <summary>
+        /// Restarts the actor.
+        /// </summary>
         void Restart();
+
+        /// <summary>
+        /// Resumes the actor.
+        /// </summary>
         void Resume();
+
+        /// <summary>
+        /// Escalates the exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
         void Escalate(Exception exception);
     }
 }

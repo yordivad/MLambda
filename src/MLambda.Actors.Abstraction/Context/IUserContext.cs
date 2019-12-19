@@ -13,7 +13,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.Abstraction
+namespace MLambda.Actors.Abstraction.Context
 {
     using System;
 

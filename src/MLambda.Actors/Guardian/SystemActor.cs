@@ -13,8 +13,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using MLambda.Actors.Abstraction.Annotation;
-
 namespace MLambda.Actors.Guardian
 {
     using System;
@@ -23,6 +21,7 @@ namespace MLambda.Actors.Guardian
     using System.Reactive;
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Annotation;
     using MLambda.Actors.Abstraction.Core;
     using MLambda.Actors.Guardian.Messages;
 
@@ -43,6 +42,7 @@ namespace MLambda.Actors.Guardian
             this.bucket = bucket;
         }
 
+        /// <inheritdoc />
         protected override Behavior Receive(object data)
             => data switch
             {
@@ -51,7 +51,6 @@ namespace MLambda.Actors.Guardian
                 ProcessFilter message => Actor.Behavior(this.Filter, message),
                 _ => Actor.Ignore,
             };
-
 
         private IObservable<int> Count() => this.bucket.Count();
 

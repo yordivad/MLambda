@@ -29,6 +29,25 @@ namespace MLambda.Actors.MailBox
     {
         private readonly ICollector collector;
 
+        private readonly Queue<IMessage> messages;
+
+        private readonly object locker;
+
+        private LifeCycle state;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailBox"/> class.
+        /// </summary>
+        /// <param name="collector">the collector.</param>
+        public MailBox(ICollector collector)
+        {
+            this.state = LifeCycle.Running;
+            this.collector = collector;
+            this.Id = Guid.NewGuid();
+            this.locker = new object();
+            this.messages = new Queue<IMessage>();
+        }
+
         /// <summary>
         /// The mailbox life cycle.
         /// </summary>
@@ -43,26 +62,6 @@ namespace MLambda.Actors.MailBox
             /// The mailbox is disposed.
             /// </summary>
             Disposed = 1,
-        }
-
-        private readonly Queue<IMessage> messages;
-
-        private readonly object locker;
-
-        private LifeCycle state;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MailBox"/> class.
-        /// </summary>
-        /// <param name="collector">the collector.</param>
-        public MailBox(ICollector collector)
-        {
-            this.state = LifeCycle.Running;
-            this.collector = collector;
-            this.Id = Guid.NewGuid();
-            this.locker = new object();
-            this.messages = new Queue<IMessage>();
         }
 
         /// <summary>

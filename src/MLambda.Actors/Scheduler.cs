@@ -32,9 +32,9 @@ namespace MLambda.Actors
 
         private readonly CancellationTokenSource cancellation;
 
-        private Func<IMessage, Task> observer;
-
         private readonly IMailBox mailBox;
+
+        private Func<IMessage, Task> observer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Scheduler"/> class.
@@ -46,7 +46,6 @@ namespace MLambda.Actors
             this.cancellation = new CancellationTokenSource();
             this.consumer = new Thread(this.Consume) { IsBackground = true };
         }
-
 
         /// <summary>
         /// Gets a value indicating whether gets the running flag.

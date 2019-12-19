@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DocumentationFile>bin\Debug\MLambda.Saga.Abstraction.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\Release\MLambda.Saga.Abstraction.xml</DocumentationFile>
-  </PropertyGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Title>MLambda Saga Abstraction</Title>
+        <Authors>MLambda</Authors>
+        <Description>MLambda Saga Abstraction</Description>
+        <Copyright>All Rights reserved.</Copyright>
+        <PackageProjectUrl>https://actors.mlambda.net</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/RoyGI/MLambda/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageIconUrl>https://github.com/RoyGI/MLambda/blob/master/docs/site/assets/mactor.png</PackageIconUrl>
+        <RepositoryUrl>https://github.com/RoyGI/MLambda</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Reactive actor model</PackageTags>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DocumentationFile>bin\Debug\MLambda.Saga.Abstraction.xml</DocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DocumentationFile>bin\Release\MLambda.Saga.Abstraction.xml</DocumentationFile>
+    </PropertyGroup>
+    <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

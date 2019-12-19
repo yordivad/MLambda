@@ -13,12 +13,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using MLambda.Actors.Abstraction.Core;
-
 namespace MLambda.Actors
 {
     using System;
-    using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Context;
+    using MLambda.Actors.Abstraction.Core;
     using MLambda.Actors.Guardian.Messages;
 
     /// <summary>

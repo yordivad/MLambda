@@ -16,12 +16,10 @@
 namespace MLambda.Actors.Supervision
 {
     using System;
-    using System.Reactive;
     using System.Reactive.Linq;
     using System.Threading.Tasks;
     using MLambda.Actors.Abstraction;
     using MLambda.Actors.Abstraction.Context;
-    using MLambda.Actors.Abstraction.Core;
     using MLambda.Actors.Abstraction.Supervision;
 
     /// <summary>
@@ -34,6 +32,7 @@ namespace MLambda.Actors.Supervision
         /// <summary>
         /// Initializes a new instance of the <see cref="OneForOne"/> class.
         /// </summary>
+        /// <param name="decider">the decider.</param>
         public OneForOne(IDecider decider)
         {
             this.decider = decider;
@@ -81,7 +80,7 @@ namespace MLambda.Actors.Supervision
                     process.Escalate(exception);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new InvalidOperationException(nameof(Directive));
             }
         }
     }

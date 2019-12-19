@@ -34,7 +34,7 @@ namespace MLambda.Actors
 
         private readonly Type type;
 
-        private IBucket bucket;
+        private readonly IBucket bucket;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkUnit"/> class.
@@ -47,7 +47,7 @@ namespace MLambda.Actors
             this.dependency = dependency;
             this.type = type;
             this.Name = type.GetCustomAttribute<RouteAttribute>()?.Name ?? type.Name;
-            this.Actor = (IActor) this.dependency.Resolve(this.type);
+            this.Actor = (IActor)this.dependency.Resolve(this.type);
             this.Supervisor = this.Actor.Supervisor ?? this.dependency.Resolve<ISupervisor>();
             this.MailBox = this.dependency.Resolve<IMailBox>();
             this.Link = new Link(this.MailBox);
@@ -97,9 +97,10 @@ namespace MLambda.Actors
         /// <summary>
         /// Starts the work unit.
         /// </summary>
+        /// <param name="receiver">The receiver.</param>
         public void Start(Func<IMessage, Task> receiver)
         {
-            this.Actor = (IActor) this.dependency.Resolve(this.type);
+            this.Actor = (IActor)this.dependency.Resolve(this.type);
             this.Scheduler = new Scheduler(this.MailBox);
             this.Scheduler.Subscribe(receiver);
             this.Scheduler.Start();

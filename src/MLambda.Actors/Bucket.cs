@@ -21,6 +21,7 @@ namespace MLambda.Actors
     using System.Reactive;
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Context;
     using MLambda.Actors.Abstraction.Core;
     using MLambda.Actors.Guardian;
 
@@ -137,8 +138,6 @@ namespace MLambda.Actors
 
         /// <inheritdoc/>
         IObservable<ILink> ISystemContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.Guards.System));
-
-
 
         private IProcess CreateProcess<T>(IProcess parent)
             where T : IActor

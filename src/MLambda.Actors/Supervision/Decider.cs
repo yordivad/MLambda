@@ -17,7 +17,6 @@ namespace MLambda.Actors.Supervision
 {
     using System;
     using System.Collections.Generic;
-    using MLambda.Actors.Abstraction;
     using MLambda.Actors.Abstraction.Supervision;
 
     /// <summary>
@@ -51,9 +50,9 @@ namespace MLambda.Actors.Supervision
         }
 
         /// <summary>
-        /// Sets the default value for any exception
+        /// Sets the default value for any exception.
         /// </summary>
-        /// <param name="directive">The directive</param>
+        /// <param name="directive">The directive.</param>
         /// <returns>the actual decider.</returns>
         public Decider Default(Directive directive)
         {

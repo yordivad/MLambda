@@ -24,6 +24,11 @@ namespace MLambda.Actors.Guardian
     [Route("/")]
     public class RootActor : Actor
     {
+        /// <summary>
+        /// Receives the data message.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns>The Behavior.</returns>
         protected override Behavior Receive(object data)
             => data switch
             {

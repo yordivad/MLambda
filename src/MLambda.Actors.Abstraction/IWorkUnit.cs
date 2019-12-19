@@ -13,13 +13,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Threading.Tasks;
-
 namespace MLambda.Actors.Abstraction
 {
     using System;
     using System.Collections.Generic;
-    using MLambda.Actors.Abstraction.Core;
+    using System.Threading.Tasks;
     using MLambda.Actors.Abstraction.Supervision;
 
     /// <summary>
@@ -63,8 +61,9 @@ namespace MLambda.Actors.Abstraction
         ISupervisor Supervisor { get; }
 
         /// <summary>
-        /// Starts the work unit.
+        /// Starts the actor model.
         /// </summary>
+        /// <param name="receiver">The receiver.</param>
         void Start(Func<IMessage, Task> receiver);
 
         /// <summary>

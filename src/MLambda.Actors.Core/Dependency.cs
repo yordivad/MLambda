@@ -17,7 +17,6 @@ namespace MLambda.Actors.Core
 {
     using System;
     using Microsoft.Extensions.DependencyInjection;
-    using MLambda.Actors.Abstraction;
     using MLambda.Actors.Abstraction.Core;
 
     /// <summary>

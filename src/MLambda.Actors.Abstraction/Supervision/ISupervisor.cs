@@ -18,7 +18,6 @@ namespace MLambda.Actors.Abstraction.Supervision
     using System;
     using System.Threading.Tasks;
     using MLambda.Actors.Abstraction.Context;
-    using MLambda.Actors.Abstraction.Core;
 
     /// <summary>
     /// The supervisor interface.

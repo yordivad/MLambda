@@ -16,6 +16,7 @@
 namespace MLambda.Actors.Abstraction
 {
     using System;
+    using MLambda.Actors.Abstraction.Context;
     using MLambda.Actors.Abstraction.Supervision;
 
     /// <summary>

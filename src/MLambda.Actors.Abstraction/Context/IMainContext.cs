@@ -20,7 +20,14 @@ namespace MLambda.Actors.Abstraction.Context
     /// </summary>
     public interface IMainContext : IContext
     {
+        /// <summary>
+        /// Gets the actor.
+        /// </summary>
         IActor Actor { get; }
+
+        /// <summary>
+        /// Gets the process.
+        /// </summary>
         IProcess Process { get;  }
     }
 }

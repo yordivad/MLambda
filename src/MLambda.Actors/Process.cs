@@ -16,12 +16,9 @@
 namespace MLambda.Actors
 {
     using System;
-    using System.Reflection;
     using System.Threading.Tasks;
     using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Annotation;
     using MLambda.Actors.Abstraction.Core;
-    using MLambda.Actors.Abstraction.Supervision;
 
     /// <summary>
     /// The process class.
@@ -148,8 +145,12 @@ namespace MLambda.Actors
             this.state = LifeCycle.Receiving;
         }
 
+        /// <summary>
+        /// Resumes the actor model.
+        /// </summary>
         public void Resume()
         {
+            ////TODO
         }
 
         /// <summary>
@@ -161,16 +162,17 @@ namespace MLambda.Actors
             this.Parent.Supervisor.Handle(exception, this.bucket.Parent(this));
         }
 
+        /// <summary>
+        /// Restart the actor model.
+        /// </summary>
         public void Restart()
         {
             this.state = LifeCycle.Stopping;
-            // this.PreRestart();
+            //// this.PreRestart();
             this.state = LifeCycle.Restarting;
-            // this.PostRestart();
+            //// this.PostRestart();
             this.Start();
         }
-
-
 
         /// <summary>
         /// Spawns the actor link.
@@ -180,7 +182,6 @@ namespace MLambda.Actors
         public ILink Spawn<T>()
             where T : IActor =>
             this.bucket.Spawn<T>(this);
-
 
         private async Task Receive(IMessage message)
         {

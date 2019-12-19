@@ -25,6 +25,7 @@ namespace MLambda.Actors.Guardian.Messages
         /// <summary>
         /// Initializes a new instance of the <see cref="Kill"/> class.
         /// </summary>
+        /// <param name="id">the id.</param>
         public Kill(Guid id)
         {
             this.Id = id;
