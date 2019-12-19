@@ -38,5 +38,15 @@ namespace MLambda.Actors.Abstraction
         /// </summary>
         /// <returns>The future message.</returns>
         IMessage Take();
+
+        /// <summary>
+        /// Stops to receive new messages.
+        /// </summary>
+        void Stop();
+
+        /// <summary>
+        /// Cleans the mailbox.
+        /// </summary>
+        void Clean();
     }
 }

@@ -18,8 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLambda.Actors.Core", "src\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B550B925-4981-479C-8BB0-6D786DE0F045}"
 ProjectSection(SolutionItems) = preProject
-	docs\README.md = docs\README.md
 	docs\index.html = docs\index.html
+	docs\_coverpage.md = docs\_coverpage.md
+	docs\_navbar.md = docs\_navbar.md
+	docs\_sidebar.md = docs\_sidebar.md
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{23217F20-823C-41C9-8CD3-12AA6BD1BEEE}"
@@ -40,7 +42,16 @@ ProjectSection(SolutionItems) = preProject
 	.travis.yml = .travis.yml
 	.editorconfig = .editorconfig
 	
+	codecov.yml = codecov.yml
 EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLambda.Saga", "src\MLambda.Saga\MLambda.Saga.csproj", "{1712D399-E808-49DC-AA6F-C13FEDE620C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLambda.Saga.Test", "test\MLambda.Saga.Test\MLambda.Saga.Test.csproj", "{4D2C48B8-7FE4-436D-8612-BA1497A6F999}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLambda.Saga.Abstraction", "src\MLambda.Saga.Abstraction\MLambda.Saga.Abstraction.csproj", "{839378FA-8600-4CEF-912E-64E7DDB05B91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLambda.Actors.Supervision.Test", "test\MLambda.Actors.Supervision.Test\MLambda.Actors.Supervision.Test.csproj", "{30C0FC86-C7CC-4B45-A62A-8D189E6784E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +83,22 @@ Global
 		{8826E935-965C-437C-BFCE-B7DA95124B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8826E935-965C-437C-BFCE-B7DA95124B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8826E935-965C-437C-BFCE-B7DA95124B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1712D399-E808-49DC-AA6F-C13FEDE620C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1712D399-E808-49DC-AA6F-C13FEDE620C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1712D399-E808-49DC-AA6F-C13FEDE620C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1712D399-E808-49DC-AA6F-C13FEDE620C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D2C48B8-7FE4-436D-8612-BA1497A6F999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D2C48B8-7FE4-436D-8612-BA1497A6F999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D2C48B8-7FE4-436D-8612-BA1497A6F999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D2C48B8-7FE4-436D-8612-BA1497A6F999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839378FA-8600-4CEF-912E-64E7DDB05B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839378FA-8600-4CEF-912E-64E7DDB05B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839378FA-8600-4CEF-912E-64E7DDB05B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839378FA-8600-4CEF-912E-64E7DDB05B91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30C0FC86-C7CC-4B45-A62A-8D189E6784E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30C0FC86-C7CC-4B45-A62A-8D189E6784E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30C0FC86-C7CC-4B45-A62A-8D189E6784E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30C0FC86-C7CC-4B45-A62A-8D189E6784E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{751002C3-5C5C-4606-9063-E3ED5843287B} = {118F4453-7B4B-4FDE-989D-E153A9EEE3E3}
@@ -81,5 +108,9 @@ Global
 		{99B81581-294C-4579-B977-E63EF3F37EF5} = {118F4453-7B4B-4FDE-989D-E153A9EEE3E3}
 		{B731F9AC-AF25-4D01-93EE-DB5C18B5CFB5} = {99B81581-294C-4579-B977-E63EF3F37EF5}
 		{8826E935-965C-437C-BFCE-B7DA95124B3E} = {23217F20-823C-41C9-8CD3-12AA6BD1BEEE}
+		{1712D399-E808-49DC-AA6F-C13FEDE620C1} = {118F4453-7B4B-4FDE-989D-E153A9EEE3E3}
+		{4D2C48B8-7FE4-436D-8612-BA1497A6F999} = {ACD493FD-A040-481F-87A4-C56DBB05D59B}
+		{839378FA-8600-4CEF-912E-64E7DDB05B91} = {118F4453-7B4B-4FDE-989D-E153A9EEE3E3}
+		{30C0FC86-C7CC-4B45-A62A-8D189E6784E9} = {ACD493FD-A040-481F-87A4-C56DBB05D59B}
 	EndGlobalSection
 EndGlobal

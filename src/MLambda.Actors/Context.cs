@@ -18,43 +18,41 @@ namespace MLambda.Actors
     using System;
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Context;
 
     /// <summary>
     /// The actor context task.
     /// </summary>
     public class Context : IMainContext
     {
-        private readonly IBucket container;
-
-        private IProcess process;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Context"/> class.
         /// </summary>
-        /// <param name="container">the container.</param>
-        public Context(IBucket container)
+        /// <param name="process">the process.</param>
+        public Context(IProcess process)
         {
-            this.container = container;
+            this.Process = process;
         }
+
+        /// <summary>
+        /// Gets the current actor.
+        /// </summary>
+        public IActor Actor => this.Process.Current.Actor;
+
+        /// <summary>
+        /// Gets the process.
+        /// </summary>
+        public IProcess Process { get; }
 
         /// <summary>
         /// Spawns a new actor.
         /// </summary>
         /// <typeparam name="T">the type of the actor.</typeparam>
         /// <returns>The address.</returns>
-        public IObservable<IAddress> Spawn<T>()
+        public IObservable<ILink> Spawn<T>()
             where T : IActor
         {
-            return Observable.Return(this.container.Spawn<T>(this.process));
-        }
-
-        /// <summary>
-        /// Setups the process.
-        /// </summary>
-        /// <param name="pid">the process.</param>
-        public void SetProcess(IProcess pid)
-        {
-            this.process = pid;
+            return Observable.Return(this.Process.Spawn<T>());
         }
     }
 }

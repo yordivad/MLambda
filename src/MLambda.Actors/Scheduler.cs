@@ -21,6 +21,7 @@ namespace MLambda.Actors
     using System.Threading;
     using System.Threading.Tasks;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Core;
 
     /// <summary>
     /// The dispatcher of the Actor.
@@ -33,31 +34,24 @@ namespace MLambda.Actors
 
         private Func<IMessage, Task> observer;
 
+        private readonly IMailBox mailBox;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Scheduler"/> class.
         /// </summary>
         /// <param name="mailBox">the mailbox.</param>
         public Scheduler(IMailBox mailBox)
         {
-            this.MailBox = mailBox;
+            this.mailBox = mailBox;
             this.cancellation = new CancellationTokenSource();
             this.consumer = new Thread(this.Consume) { IsBackground = true };
         }
 
-        /// <summary>
-        /// Gets the mailbox.
-        /// </summary>
-        public IMailBox MailBox { get; }
 
         /// <summary>
         /// Gets a value indicating whether gets the running flag.
         /// </summary>
         public bool IsRunning => true;
-
-        /// <summary>
-        /// Gets the id.
-        /// </summary>
-        public Guid Id => this.MailBox.Id;
 
         /// <summary>
         /// Starts the mailbox dispatcher.
@@ -92,7 +86,7 @@ namespace MLambda.Actors
         {
             while (!this.cancellation.IsCancellationRequested)
             {
-                var message = this.MailBox.Take();
+                var message = this.mailBox.Take();
                 this.observer?.Invoke(message);
             }
         }

@@ -13,6 +13,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using MLambda.Actors.Abstraction.Core;
+
 namespace MLambda.Actors
 {
     using System;
@@ -24,15 +26,15 @@ namespace MLambda.Actors
     /// </summary>
     public class Collector : ICollector
     {
-        private readonly IRootContext root;
+        private readonly ISystemContext system;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Collector"/> class.
         /// </summary>
-        /// <param name="root">the root context.</param>
-        public Collector(IRootContext root)
+        /// <param name="system">the root context.</param>
+        public Collector(ISystemContext system)
         {
-            this.root = root;
+            this.system = system;
         }
 
         /// <summary>
@@ -41,7 +43,7 @@ namespace MLambda.Actors
         /// <param name="id">the id.</param>
         public void Collect(Guid id)
         {
-            this.root.Self.Send(new Kill(id));
+            this.system.Self.Send(new Kill(id));
         }
     }
 }

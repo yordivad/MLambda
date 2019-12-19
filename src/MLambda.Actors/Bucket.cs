@@ -21,22 +21,19 @@ namespace MLambda.Actors
     using System.Reactive;
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Guardian;
+    using MLambda.Actors.Abstraction.Core;
+    using MLambda.Actors.Guardian;
 
     /// <summary>
     /// The actor container class.
     /// </summary>
-    public class Bucket : IBucket, IUserContext, IRootContext
+    public class Bucket : IBucket, IUserContext, ISystemContext
     {
         private readonly IDependency dependency;
 
         private readonly IDictionary<Guid, IProcess> processes;
 
-        private readonly object locker;
-
-        private IProcess root;
-
-        private IProcess user;
+        private Guardians guardians;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Bucket"/> class.
@@ -44,7 +41,6 @@ namespace MLambda.Actors
         /// <param name="dependency">the dependency.</param>
         public Bucket(IDependency dependency)
         {
-            this.locker = new object();
             this.dependency = dependency;
             this.processes = new Dictionary<Guid, IProcess>();
         }
@@ -52,54 +48,40 @@ namespace MLambda.Actors
         /// <summary>
         /// Gets the root.
         /// </summary>
-        IAddress IRootContext.Self => this.Root;
+        ILink ISystemContext.Self => this.System;
 
         /// <summary>
         /// Gets the user.
         /// </summary>
-        IAddress IUserContext.Self => this.User;
+        ILink IUserContext.Self => this.User;
 
         /// <summary>
-        /// Gets the root address.
+        /// Gets the root link.
         /// </summary>
-        public IAddress Root => this.RootProcess.Address;
+        public ILink Root => this.Guards.Root.Current.Link;
 
         /// <summary>
-        /// Gets the user address.
+        /// Gets the user link.
         /// </summary>
-        public IAddress User => this.UserProcess.Address;
+        public ILink User => this.Guards.User.Current.Link;
 
-        private IProcess RootProcess
+        /// <summary>
+        /// Gets the system link.
+        /// </summary>
+        public ILink System => this.Guards.System.Current.Link;
+
+        private Guardians Guards
         {
             get
             {
-                lock (this.locker)
+                if (this.guardians != null)
                 {
-                    if (this.root != null)
-                    {
-                        return this.root;
-                    }
-
-                    this.root = this.SetProcess<IRootActor>(null);
-                    return this.root;
+                    return this.guardians;
                 }
-            }
-        }
 
-        private IProcess UserProcess
-        {
-            get
-            {
-                lock (this.locker)
-                {
-                    if (this.user != null)
-                    {
-                        return this.user;
-                    }
-
-                    this.user = this.SetProcess<IUserActor>(this.RootProcess);
-                    return this.user;
-                }
+                this.guardians = new Guardians();
+                this.guardians.Load(this, this.dependency);
+                return this.guardians;
             }
         }
 
@@ -109,11 +91,11 @@ namespace MLambda.Actors
         /// <param name="parent">the parent process.</param>
         /// <typeparam name="T">the type of the actor.</typeparam>
         /// <returns>The address actor.</returns>
-        public IAddress Spawn<T>(IProcess parent)
+        public ILink Spawn<T>(IProcess parent)
             where T : IActor
         {
-            var process = this.SetProcess<T>(parent);
-            return process.Address;
+            var process = this.CreateProcess<T>(parent);
+            return process.Current.Link;
         }
 
         /// <summary>
@@ -136,19 +118,35 @@ namespace MLambda.Actors
         /// <returns>The list of process.</returns>
         public IEnumerable<IProcess> Filter(Func<IProcess, bool> filter) => this.processes.Values.Where(filter);
 
+        /// <summary>
+        /// Counts the number of the process.
+        /// </summary>
+        /// <returns>the count of process.</returns>
         public IObservable<int> Count() => Observable.Return(this.processes.Count());
 
-        IObservable<IAddress> IUserContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.UserProcess));
+        /// <summary>
+        /// Gets the parent of the current process.
+        /// </summary>
+        /// <param name="process">the current process.</param>
+        /// <returns>the parent.</returns>
+        public IProcess Parent(IProcess process) =>
+            this.processes.Select(c => c.Value).FirstOrDefault(c => c.Id == process.Id);
 
-        IObservable<IAddress> IRootContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.RootProcess));
+        /// <inheritdoc/>
+        IObservable<ILink> IUserContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.Guards.User));
 
-        private IProcess SetProcess<T>(IProcess parent)
+        /// <inheritdoc/>
+        IObservable<ILink> ISystemContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.Guards.System));
+
+
+
+        private IProcess CreateProcess<T>(IProcess parent)
             where T : IActor
         {
-            var actor = this.dependency.Resolve<T>();
-            var process = this.dependency.Resolve<IProcess>();
-            process.Setup(parent, actor);
+            var job = new WorkUnit(this.dependency, typeof(T));
+            var process = new Process(this, parent.Current, job);
             this.processes.Add(process.Id, process);
+            process.Start();
             return process;
         }
     }

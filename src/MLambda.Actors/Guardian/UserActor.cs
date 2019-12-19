@@ -17,23 +17,22 @@ namespace MLambda.Actors.Guardian
 {
     using MLambda.Actors.Abstraction;
     using MLambda.Actors.Abstraction.Annotation;
-    using MLambda.Actors.Abstraction.Guardian;
 
     /// <summary>
     /// The user actor class.
     /// </summary>
-    [Route("user")]
-    public class UserActor : IUserActor
+    [Route("/user")]
+    public class UserActor : Actor
     {
         /// <summary>
         /// Receives the message.
         /// </summary>
         /// <param name="data">the data.</param>
         /// <returns>the behavior.</returns>
-        public Behavior Receive(object data) =>
-            data switch
+        protected override Behavior Receive(object data)
+            => data switch
             {
-                _ => Actor.Ignore
+                _ => Actor.Ignore,
             };
     }
 }

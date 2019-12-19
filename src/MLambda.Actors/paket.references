@@ -1,0 +1,4 @@
+StyleCop.Analyzers
+System.Reactive
+System.Reactive.Linq
+System.Reactive.Observable.Aliases

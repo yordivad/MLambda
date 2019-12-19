@@ -18,34 +18,14 @@ namespace MLambda.Actors.Abstraction
     using System;
 
     /// <summary>
-    /// The process interfaces.
+    /// The work interface.
     /// </summary>
     public interface IProcess
     {
         /// <summary>
-        /// Gets the unique id.
+        /// Gets the id.
         /// </summary>
         Guid Id { get; }
-
-        /// <summary>
-        /// Gets the path.
-        /// </summary>
-        string Route { get; }
-
-        /// <summary>
-        /// Gets the address.
-        /// </summary>
-        IAddress Address { get; }
-
-        /// <summary>
-        /// Gets the parent.
-        /// </summary>
-        IActor Parent { get; }
-
-        /// <summary>
-        /// Gets the child actor.
-        /// </summary>
-        IActor Child { get; }
 
         /// <summary>
         /// Gets the status.
@@ -53,15 +33,40 @@ namespace MLambda.Actors.Abstraction
         string Status { get; }
 
         /// <summary>
-        /// Setups the actors.
+        /// Gets the route.
         /// </summary>
-        /// <param name="process">the parent actor.</param>
-        /// <param name="childActor">the child actor.</param>
-        void Setup(IProcess process, IActor childActor);
+        string Route { get; }
 
         /// <summary>
-        /// Stop the process.
+        /// Gets the parent reckon.
+        /// </summary>
+        IWorkUnit Parent { get; }
+
+        /// <summary>
+        /// Gets the child reckon.
+        /// </summary>
+        IWorkUnit Current { get; }
+
+        /// <summary>
+        /// Spawns the actor link.
+        /// </summary>
+        /// <typeparam name="T">the type T of the actor.</typeparam>
+        /// <returns>The link.</returns>
+        ILink Spawn<T>()
+            where T : IActor;
+
+        /// <summary>
+        /// Stops the actor.
         /// </summary>
         void Stop();
+
+        /// <summary>
+        /// Starts the actor.
+        /// </summary>
+        void Start();
+
+        void Restart();
+        void Resume();
+        void Escalate(Exception exception);
     }
 }

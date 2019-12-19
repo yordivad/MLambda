@@ -20,21 +20,46 @@ namespace MLambda.Actors.MailBox
     using System.Linq;
     using System.Threading;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Core;
 
     /// <summary>
     /// The mail box class.
     /// </summary>
     public class MailBox : IMailBox
     {
+        private readonly ICollector collector;
+
+        /// <summary>
+        /// The mailbox life cycle.
+        /// </summary>
+        public enum LifeCycle
+        {
+            /// <summary>
+            /// The mailbox is running.
+            /// </summary>
+            Running = 0,
+
+            /// <summary>
+            /// The mailbox is disposed.
+            /// </summary>
+            Disposed = 1,
+        }
+
         private readonly Queue<IMessage> messages;
 
         private readonly object locker;
 
+        private LifeCycle state;
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MailBox"/> class.
         /// </summary>
-        public MailBox()
+        /// <param name="collector">the collector.</param>
+        public MailBox(ICollector collector)
         {
+            this.state = LifeCycle.Running;
+            this.collector = collector;
             this.Id = Guid.NewGuid();
             this.locker = new object();
             this.messages = new Queue<IMessage>();
@@ -53,8 +78,15 @@ namespace MLambda.Actors.MailBox
         {
             lock (this.locker)
             {
-                this.messages.Enqueue(message);
-                Monitor.Pulse(this.locker);
+                if (this.state == LifeCycle.Running)
+                {
+                    this.messages.Enqueue(message);
+                    Monitor.Pulse(this.locker);
+                }
+                else
+                {
+                    throw new ObjectDisposedException(nameof(MailBox));
+                }
             }
         }
 
@@ -73,6 +105,22 @@ namespace MLambda.Actors.MailBox
 
                 return this.messages.Dequeue();
             }
+        }
+
+        /// <inheritdoc />
+        public void Stop()
+        {
+            this.collector.Collect(this.Id);
+            this.state = LifeCycle.Disposed;
+            this.messages.Clear();
+        }
+
+        /// <summary>
+        /// Cleans the message mailbox.
+        /// </summary>
+        public void Clean()
+        {
+            this.messages.Clear();
         }
     }
 }
