@@ -141,9 +141,11 @@ Task("default")
         .IsDependentOn("analysis-begin")
         .IsDependentOn("build")
         .IsDependentOn("test")
-        .IsDependentOn("analysis-end")
-        .IsDependentOn("pack")
-        .IsDependentOn("push");
+        .IsDependentOn("analysis-end");
+
+Task("deploy")
+    .IsDependentOn("pack")
+    .IsDependentOn("push");
         
 Task("check")
         .IsDependentOn("clean")

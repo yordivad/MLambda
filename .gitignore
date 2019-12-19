@@ -338,3 +338,11 @@ ASALocalRun/
 tools/
 
 codecov
+
+.skaffold/
+
+get_helm.sh
+
+kubectl
+
+skaffold

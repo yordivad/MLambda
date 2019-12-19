@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
-  </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <RunCodeAnalysis>false</RunCodeAnalysis>
+    </PropertyGroup>
+    <ItemGroup>
+      <Content Include="Saga.feature" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\MLambda.Saga.Abstraction\MLambda.Saga.Abstraction.csproj" />
+      <ProjectReference Include="..\..\src\MLambda.Saga\MLambda.Saga.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="..\..\stylecop.json">
+            <Link>stylecop.json</Link>
+        </AdditionalFiles>
+    </ItemGroup>
+    <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

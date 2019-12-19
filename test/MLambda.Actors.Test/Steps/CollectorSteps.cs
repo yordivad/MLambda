@@ -40,7 +40,7 @@ namespace MLambda.Actors.Test.Steps
         [Given(@"an user actor")]
         public async void GivenAnUserActor()
         {
-            this.user.Self.Send(new object());
+            await this.user.Self.Send(new object());
             var count = await this.system.Self.Send<ProcessCount, int>(new ProcessCount());
             this.scenario["expected_count"] = count;
         }

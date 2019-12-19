@@ -1,0 +1,38 @@
+#Server Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: actors-svc
+spec: 
+  selector:
+    component: actors
+  ports:
+    - port: 80
+      targetPort: 3000
+
+---
+# Server Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actors-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: actors
+  template:
+    metadata:
+      labels:
+        component: actors
+    spec:
+      containers:
+        - name: actors-pod
+          image: roygi-docker-mdocker.bintray.io/actors
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            tcpSocket:
+              port: 3000

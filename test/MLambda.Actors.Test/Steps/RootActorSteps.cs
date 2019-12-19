@@ -43,8 +43,8 @@ namespace MLambda.Actors.Test.Steps
         [Given(@"a demo actor")]
         public async void GivenADemoActor()
         {
-            this.system.Self.Send(new object());
-            this.user.Self.Send(new object());
+            await this.system.Self.Send(new object());
+            await this.user.Self.Send(new object());
 
             var processes = await this.system.Self.Send<ProcessFilter, IEnumerable<Pid>>(new ProcessFilter("*"));
 
@@ -59,7 +59,7 @@ namespace MLambda.Actors.Test.Steps
             var processes =
                 await this.system.Self.Send<ProcessFilter, IEnumerable<Pid>>(new ProcessFilter("/user/console"));
             var console = processes.FirstOrDefault();
-            this.system.Self.Send(new Kill(console.Id));
+            await this.system.Self.Send(new Kill(console.Id));
             processes = await this.system.Self.Send<ProcessFilter, IEnumerable<Pid>>(new ProcessFilter("*"));
             this.scenario["actual_actors"] = processes.Count();
         }

@@ -1,6 +1,7 @@
 
 * Getting started
   * [Welcome](README.md)
+  * [Actor Model](site/ActorModel.md)
   * [Quick start](site/quickstart.md)
   * [Architecture](site/architecture.md)
     

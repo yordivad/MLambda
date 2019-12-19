@@ -19,5 +19,13 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DocumentationFile>bin\Release\MLambda.Saga.xml</DocumentationFile>
     </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\MLambda.Saga.Abstraction\MLambda.Saga.Abstraction.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <AdditionalFiles Include="..\..\stylecop.json">
+        <Link>stylecop.json</Link>
+      </AdditionalFiles>
+    </ItemGroup>
     <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
