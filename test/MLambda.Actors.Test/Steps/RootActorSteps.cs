@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using MLambda.Actors.Test.Actors;
+
 namespace MLambda.Actors.Test.Steps
 {
     using System.Collections.Generic;
@@ -9,7 +11,6 @@ namespace MLambda.Actors.Test.Steps
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
     using MLambda.Actors.Guardian.Messages;
-    using MLambda.Actors.Test.Specimen;
     using Shouldly;
     using TechTalk.SpecFlow;
 

@@ -84,7 +84,7 @@ Task("pack").Does(() => {
          {
             ArgumentCustomization = 
                                 args => args.Append($"/p:Version={version}")
-                                            .Append($"/p:IncludeSymbols=true")
+                                            .Append($"/p:IncludeSymbols=false")
                                             .Append("/p:SymbolPackageFormat=snupkg"),
             Configuration = configuration,
             OutputDirectory = artifacts

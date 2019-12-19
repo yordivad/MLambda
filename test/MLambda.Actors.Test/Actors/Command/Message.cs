@@ -1,4 +1,4 @@
-namespace MLambda.Actors.Supervision.Test.Actors
+namespace MLambda.Actors.Test.Actors.Command
 {
     public class Message
     {

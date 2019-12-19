@@ -1,3 +1,5 @@
+using MLambda.Actors.Test.Actors.Command;
+
 namespace MLambda.Actors.Supervision.Test.Steps
 {
     using System.Reactive.Linq;
@@ -21,7 +23,7 @@ namespace MLambda.Actors.Supervision.Test.Steps
         [Given(@"a actor with one to one strategy")]
         public async Task GivenAActorWithOneToOneStrategy()
         {
-            var actor = await this.user.Spawn<ConsoleActor>();
+            var actor = await this.user.Spawn<SupervisionActor>();
             this.scenario["actor"] = actor;
         }
 

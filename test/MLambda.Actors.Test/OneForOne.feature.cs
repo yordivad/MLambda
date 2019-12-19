@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace MLambda.Actors.Supervision.Test
+namespace MLambda.Actors.Test
 {
     using TechTalk.SpecFlow;
     using System;

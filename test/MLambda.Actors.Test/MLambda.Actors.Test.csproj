@@ -9,6 +9,7 @@
     <Content Include="Actor.feature" />
     <Content Include="Collector.feature" />
     <Content Include="Guardian.feature" />
+    <Content Include="OneForOne.feature" />
     <Content Include="RootActor.feature" />
     <Content Include="UserActor.feature" />
   </ItemGroup>

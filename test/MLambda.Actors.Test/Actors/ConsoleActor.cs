@@ -1,11 +1,11 @@
-namespace MLambda.Actors.Test.Specimen
-{
-    using System;
-    using System.Reactive;
-    using System.Reactive.Linq;
-    using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Abstraction.Annotation;
+using System;
+using System.Reactive;
+using System.Reactive.Linq;
+using MLambda.Actors.Abstraction;
+using MLambda.Actors.Abstraction.Annotation;
 
+namespace MLambda.Actors.Test.Actors
+{
     /// <summary>
     /// The console actor.
     /// </summary>

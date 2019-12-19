@@ -1,11 +1,11 @@
 using MLambda.Actors.Guardian.Messages;
+using MLambda.Actors.Test.Actors;
 using Shouldly;
 
 namespace MLambda.Actors.Test.Steps
 {
     using System.Reactive.Linq;
     using MLambda.Actors.Abstraction;
-    using MLambda.Actors.Test.Specimen;
     using TechTalk.SpecFlow;
 
     [Binding]

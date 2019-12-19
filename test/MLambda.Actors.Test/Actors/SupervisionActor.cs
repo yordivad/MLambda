@@ -1,3 +1,5 @@
+using MLambda.Actors.Test.Actors.Command;
+
 namespace MLambda.Actors.Supervision.Test.Actors
 {
     using System;
@@ -5,7 +7,7 @@ namespace MLambda.Actors.Supervision.Test.Actors
     using MLambda.Actors.Abstraction;
     using MLambda.Actors.Abstraction.Supervision;
 
-    public class ConsoleActor : Actor
+    public class SupervisionActor : Actor
     {
         public ISupervisor Supervisor => Strategy.OneForOne(decider =>
             decider
