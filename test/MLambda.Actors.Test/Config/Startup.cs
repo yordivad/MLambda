@@ -36,7 +36,7 @@ namespace MLambda.Actors.Test.Config
         /// </summary>
         /// <returns>The container builder.</returns>
         [ScenarioDependencies]
-        public static ContainerBuilder CreateContainerBuilder()
+        public static ContainerBuilder CreateContainer()
         {
             var services = new ServiceCollection();
             services.AddActor();

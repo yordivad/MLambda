@@ -46,7 +46,7 @@ namespace MLambda.Actors.Test.Steps
         [When(@"the actor send a restart message")]
         public void WhenTheActorSendARestartMessage()
         {
-            var actor = this.scenario.Get<ILink>("actor");
+            var actor = this.scenario.Get<IAddress>("actor");
             actor.Send(new Message("Restart"));
         }
 

@@ -179,7 +179,7 @@ namespace MLambda.Actors
         /// </summary>
         /// <typeparam name="T">the type of the actor.</typeparam>
         /// <returns>The link of the actor.</returns>
-        public ILink Spawn<T>()
+        public IAddress Spawn<T>()
             where T : IActor =>
             this.bucket.Spawn<T>(this);
 

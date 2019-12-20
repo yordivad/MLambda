@@ -46,7 +46,7 @@ namespace MLambda.Actors.Core
             services.AddTransient<UserActor>();
             services.AddTransient<IMainContext, Context>();
             services.AddTransient<IProcess, Process>();
-            services.AddTransient<IMailBox, MailBox.MailBox>();
+            services.AddTransient<IMailBox, MailBox>();
             services.AddTransient<IScheduler, Scheduler>();
             return services;
         }

@@ -50,7 +50,7 @@ namespace MLambda.Actors
             this.Actor = (IActor)this.dependency.Resolve(this.type);
             this.Supervisor = this.Actor.Supervisor ?? this.dependency.Resolve<ISupervisor>();
             this.MailBox = this.dependency.Resolve<IMailBox>();
-            this.Link = new Link(this.MailBox);
+            this.Address = new Address(this.MailBox);
             this.bucket = this.dependency.Resolve<IBucket>();
         }
 
@@ -77,7 +77,7 @@ namespace MLambda.Actors
         /// <summary>
         /// Gets the Link.
         /// </summary>
-        public ILink Link { get; private set; }
+        public IAddress Address { get; private set; }
 
         /// <summary>
         /// Gets the Children.

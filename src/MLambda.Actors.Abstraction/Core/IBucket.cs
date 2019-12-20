@@ -27,17 +27,17 @@ namespace MLambda.Actors.Abstraction.Core
         /// <summary>
         /// Gets the root address.
         /// </summary>
-        ILink Root { get; }
+        IAddress Root { get; }
 
         /// <summary>
         /// Gets the user address.
         /// </summary>
-        ILink User { get; }
+        IAddress User { get; }
 
         /// <summary>
         /// Gets the system address.
         /// </summary>
-        ILink System { get; }
+        IAddress System { get; }
 
         /// <summary>
         /// Creates the actor address.
@@ -45,7 +45,7 @@ namespace MLambda.Actors.Abstraction.Core
         /// <param name="parent">the parent process.</param>
         /// <typeparam name="T">the type of the actor.</typeparam>
         /// <returns>The address of the actor.</returns>
-        ILink Spawn<T>(IProcess parent)
+        IAddress Spawn<T>(IProcess parent)
             where T : IActor;
 
         /// <summary>

@@ -1,6 +1,5 @@
-# MLambda
 
-## Quality Metrics
+# [MLambda](https://www.mlambda.net)
 
 [![Join the chat at](https://badges.gitter.im/M-Lambda/Actor.svg)](https://gitter.im/M-Lambda/Actor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 ![Mergefy](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/RoyGI/MLambda&amp;style=flat)
@@ -11,7 +10,11 @@
 [![GuardRails badge](https://badges.guardrails.io/RoyGI/MLambda.svg?token=92ebac5e2201973fdb72dab039abe5da63bc8427d4dda67f0b33e71a15c6f06f&provider=github)](https://dashboard.guardrails.io/default/gh/RoyGI/MLambda)
 [![DeepScan grade](https://deepscan.io/api/teams/5205/projects/8339/branches/96761/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5205&pid=8339&bid=96761)
 
-## About It
+<p align="center">
+    <a href="https://actors.mlambda.net">
+      <img src="https://actors.mlambda.net/site/assets/mactor.png" alt="actor">
+    </a>
+</p>
 
  MLambda is a Reactive Actor Model framework to define DDD Application Layer.
  
@@ -23,14 +26,16 @@
  can define Actors as Application layer in the DDD.
  
  
- ## To Documentation:
+ ## More information:
  
-[Go to documentation](https://actors.mlambda.net])
+[Go to documentation](https://actors.mlambda.net)
 
 [About Actors](https://www.youtube.com/watch?v=7erJ1DV_Tlo) 
 
 
 ## Libraries
-https://api.bintray.com/nuget/roygi/mlibrary
 
 [![Download](https://api.bintray.com/packages/roygi/mlibrary/MLambda.Actors/images/download.svg?version=1.0.0) ](https://bintray.com/roygi/mlibrary/MLambda.Actors/1.0.0/link)
+
+source: https://api.bintray.com/nuget/roygi/mlibrary
+

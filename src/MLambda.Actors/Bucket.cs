@@ -49,27 +49,27 @@ namespace MLambda.Actors
         /// <summary>
         /// Gets the root.
         /// </summary>
-        ILink ISystemContext.Self => this.System;
+        IAddress ISystemContext.Self => this.System;
 
         /// <summary>
         /// Gets the user.
         /// </summary>
-        ILink IUserContext.Self => this.User;
+        IAddress IUserContext.Self => this.User;
 
         /// <summary>
         /// Gets the root link.
         /// </summary>
-        public ILink Root => this.Guards.Root.Current.Link;
+        public IAddress Root => this.Guards.Root.Current.Address;
 
         /// <summary>
         /// Gets the user link.
         /// </summary>
-        public ILink User => this.Guards.User.Current.Link;
+        public IAddress User => this.Guards.User.Current.Address;
 
         /// <summary>
         /// Gets the system link.
         /// </summary>
-        public ILink System => this.Guards.System.Current.Link;
+        public IAddress System => this.Guards.System.Current.Address;
 
         private Guardians Guards
         {
@@ -92,11 +92,11 @@ namespace MLambda.Actors
         /// <param name="parent">the parent process.</param>
         /// <typeparam name="T">the type of the actor.</typeparam>
         /// <returns>The address actor.</returns>
-        public ILink Spawn<T>(IProcess parent)
+        public IAddress Spawn<T>(IProcess parent)
             where T : IActor
         {
             var process = this.CreateProcess<T>(parent);
-            return process.Current.Link;
+            return process.Current.Address;
         }
 
         /// <summary>
@@ -134,10 +134,10 @@ namespace MLambda.Actors
             this.processes.Select(c => c.Value).FirstOrDefault(c => c.Id == process.Id);
 
         /// <inheritdoc/>
-        IObservable<ILink> IUserContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.Guards.User));
+        IObservable<IAddress> IUserContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.Guards.User));
 
         /// <inheritdoc/>
-        IObservable<ILink> ISystemContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.Guards.System));
+        IObservable<IAddress> ISystemContext.Spawn<T>() => Observable.Return(this.Spawn<T>(this.Guards.System));
 
         private IProcess CreateProcess<T>(IProcess parent)
             where T : IActor

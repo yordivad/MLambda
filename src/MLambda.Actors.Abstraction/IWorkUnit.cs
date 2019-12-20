@@ -43,7 +43,7 @@ namespace MLambda.Actors.Abstraction
         /// <summary>
         /// Gets the link.
         /// </summary>
-        ILink Link { get; }
+        IAddress Address { get; }
 
         /// <summary>
         /// Gets the children.

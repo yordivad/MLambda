@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Link.cs" company="MLambda">
+// <copyright file="Address.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -24,23 +24,23 @@ namespace MLambda.Actors
     /// <summary>
     /// The actor proxy implementation.
     /// </summary>
-    public class Link : ILink
+    public class Address : IAddress
     {
         private readonly IMailBox mailBox;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Link"/> class.
+        /// Initializes a new instance of the <see cref="Address"/> class.
         /// </summary>
         /// <param name="mailBox">the mail box.</param>
-        public Link(IMailBox mailBox)
+        public Address(IMailBox mailBox)
         {
             this.mailBox = mailBox;
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Link"/> class.
+        /// Finalizes an instance of the <see cref="Address"/> class.
         /// </summary>
-        ~Link() => this.Dispose(false);
+        ~Address() => this.Dispose(false);
 
         /// <summary>
         /// Tells to the actor the message.

@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ILink.cs" company="MLambda">
+// <copyright file="IAddress.cs" company="MLambda">
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -21,7 +21,7 @@ namespace MLambda.Actors.Abstraction
     /// <summary>
     /// The actor proxy.
     /// </summary>
-    public interface ILink : IDisposable
+    public interface IAddress : IDisposable
     {
         /// <summary>
         /// Tells the message to the actor.

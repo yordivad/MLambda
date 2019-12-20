@@ -8,7 +8,7 @@
         <Copyright>All Rights reserved.</Copyright>
         <PackageProjectUrl>https://actors.mlambda.net</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/RoyGI/MLambda/blob/master/LICENSE</PackageLicenseUrl>
-        <PackageIconUrl>https://github.com/RoyGI/MLambda/blob/master/docs/site/assets/mactor.png</PackageIconUrl>
+        <PackageIconUrl>https://actors.mlambda.net/site/assets/mactor.png</PackageIconUrl>
         <RepositoryUrl>https://github.com/RoyGI/MLambda</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>Reactive actor model</PackageTags>

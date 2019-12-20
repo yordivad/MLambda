@@ -52,7 +52,7 @@ namespace MLambda.Actors.Abstraction
         /// </summary>
         /// <typeparam name="T">the type T of the actor.</typeparam>
         /// <returns>The link.</returns>
-        ILink Spawn<T>()
+        IAddress Spawn<T>()
             where T : IActor;
 
         /// <summary>

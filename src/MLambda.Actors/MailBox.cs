@@ -13,7 +13,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MLambda.Actors.MailBox
+namespace MLambda.Actors
 {
     using System;
     using System.Collections.Generic;

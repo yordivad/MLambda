@@ -25,14 +25,14 @@ namespace MLambda.Actors.Abstraction.Context
         /// <summary>
         /// Gets the user.
         /// </summary>
-        ILink Self { get; }
+        IAddress Self { get; }
 
         /// <summary>
         /// Gets the user context.
         /// </summary>
         /// <typeparam name="T">the type of the actor.</typeparam>
         /// <returns>The actor address.</returns>
-        IObservable<ILink> Spawn<T>()
+        IObservable<IAddress> Spawn<T>()
             where T : IActor;
     }
 }

@@ -9,7 +9,7 @@ spec:
     tls:
         - hosts:
               - actors.mlambda.net
-          secretName: m-cert
+          secretName: actors-cert
     rules:
         - host: actors.mlambda.net
           http:

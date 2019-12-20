@@ -49,7 +49,7 @@ namespace MLambda.Actors
         /// </summary>
         /// <typeparam name="T">the type of the actor.</typeparam>
         /// <returns>The address.</returns>
-        public IObservable<ILink> Spawn<T>()
+        public IObservable<IAddress> Spawn<T>()
             where T : IActor
         {
             return Observable.Return(this.Process.Spawn<T>());

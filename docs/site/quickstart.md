@@ -44,8 +44,8 @@ public class HelloController {
     
     [HttpPost]
     public IObservable<Unit> Hello(string message) {
-        var link = this.user.Spawn<HelloWorld>();
-        return link.Send(message);
+        var address = this.user.Spawn<HelloWorld>();
+        return address.Send(message);
     }
 }
 
