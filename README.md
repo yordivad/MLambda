@@ -28,9 +28,9 @@
     </a>
 </p>
 
- MLambda is a Reactive Actor Model framework to define DDD Application Layer.
+MLambda is a Reactive Actor Model framework to define DDD Application Layer.
  
- It is a lightweight actor model, it is designed using solid principles, also it is been develop in term of Hexagonal architecture, this actor model has uncoupled from the Remote actors. It doesn't depend on a specified port or adaptor as gRPC or Restful. 
+It is a lightweight actor model, it is designed using solid principles, also it is been develop in term of Hexagonal  architecture, this actor model has uncoupled from the Remote actors. It doesn't depend on a specified port or adaptor as gRPC or Restful. 
  
  To allow remote actors you can implement the specific port that you want. This framework allows you
 can define Actors as Application layer in the DDD.
