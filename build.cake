@@ -23,7 +23,7 @@ Task("analysis-begin").Does(()=> {
                         .Append("/d:sonar.test.exclusions=test/**")
                         .Append("/d:sonar.exclusions=data/**,examples/**")
                         .Append("/d:sonar.branch.name={0}", branch)
-                        .Append("/d:sonar.links.ci=https://circleci.com/gh/RoyGI")
+                        .Append("/d:sonar.links.ci=https://travis-ci.com/RoyGI/MLambda")
                         .Append("/d:sonar.host.url=https://sonarcloud.io")
                         .Append("/d:sonar.login={0}",sonarKey)
                         .Append("/o:roygi")
@@ -144,6 +144,7 @@ Task("default")
         .IsDependentOn("analysis-end");
 
 Task("deploy")
+    .IsDependentOn("version")
     .IsDependentOn("pack")
     .IsDependentOn("push");
         
