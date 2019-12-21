@@ -348,3 +348,11 @@ kubectl
 skaffold
 
 .paket/paket.targets
+
+coverage.json
+
+lcov.info
+
+paket.lock
+
+.paket/

@@ -45,8 +45,17 @@ can define Actors as Application layer in the DDD.
 
 ## Libraries
 
-[![Download](https://api.bintray.com/packages/roygi/mlibrary/MLambda.Actors/images/download.svg)](https://bintray.com/roygi/mlibrary/MLambda.Actors/_latestVersion)
-
 <a href='https://bintray.com/roygi/mlibrary/MLambda.Actors?source=watch' alt='Get automatic notifications about new "MLambda.Actors" versions'>
     <img src='https://www.bintray.com/docs/images/bintray_badge_color.png'>
 </a>
+
+[![Download](https://api.bintray.com/packages/roygi/mlibrary/MLambda.Actors/images/download.svg)](https://bintray.com/roygi/mlibrary/MLambda.Actors/_latestVersion)
+
+
+
+#### Thanks
+
+<p align="center">
+    <a href="https://www.buymeacoffee.com/yordivad" target="_blank">
+        <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="217px" height="51px">       </a>
+</p>
