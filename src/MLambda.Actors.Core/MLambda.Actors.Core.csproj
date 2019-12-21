@@ -21,7 +21,6 @@
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\MLambda.Actors.Abstraction\MLambda.Actors.Abstraction.csproj" />
-        <ProjectReference Include="..\MLambda.Actors.MailBox\MLambda.Actors.MailBox.csproj" />
         <ProjectReference Include="..\MLambda.Actors\MLambda.Actors.csproj" />
     </ItemGroup>
     <ItemGroup>

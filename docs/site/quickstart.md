@@ -1,10 +1,10 @@
-# Quick start
+# Quickstart
 
 To define an actor inheritance of Actor class and override the method **Receive**
 
-> The receive method use pattern matching to apply the behaviors.
+> The receive method use pattern matching to apply the behaviours.
 
-In the receive assign the behavior all of the response for the actor are
+In the receive assign the behaviour all of the response for the actor is
 reactive observable objects.
 
 ## Defining an actor.

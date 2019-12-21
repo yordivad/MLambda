@@ -346,3 +346,5 @@ get_helm.sh
 kubectl
 
 skaffold
+
+.paket/paket.targets
