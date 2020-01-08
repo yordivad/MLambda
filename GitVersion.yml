@@ -1,4 +1,4 @@
-assembly-versioning-scheme: MajorMinor
+assembly-versioning-scheme: MajorMinorPatch
 mode: Mainline
 continuous-delivery-fallback-tag: ''
 next-version: 1.0.0
@@ -6,7 +6,7 @@ branches:
   master:
     mode: ContinuousDeployment
     tag: ''
-    increment: Minor
+    increment: Patch
   develop:
     mode: ContinuousDeployment
     tag: beta
