@@ -12,6 +12,7 @@
         <RepositoryUrl>https://github.com/RoyGI/MLambda</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>Reactive actor model</PackageTags>
+        <PackageReleaseNotes>https://github.com/RoyGI/MLambda/releases</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DocumentationFile>bin\Debug\MLambda.Saga.xml</DocumentationFile>
