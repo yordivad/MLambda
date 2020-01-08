@@ -21,7 +21,7 @@ namespace MLambda.Actors.Guardian
     /// <summary>
     /// The user actor class.
     /// </summary>
-    [Route("/user")]
+    [Route("user")]
     public class UserActor : Actor
     {
         /// <summary>

@@ -45,10 +45,9 @@ namespace MLambda.Actors.Guardian
         /// <param name="dependency">the dependency resolver.</param>
         public void Load(IBucket bucket, IDependency dependency)
         {
-            var rootJob = new WorkUnit(dependency, typeof(RootActor));
-            this.Root = new Process(bucket, null, rootJob);
-            this.User = new Process(bucket, rootJob, new WorkUnit(dependency, typeof(UserActor)));
-            this.System = new Process(bucket, rootJob, new WorkUnit(dependency, typeof(SystemActor)));
+            this.Root = new Process(bucket, null, new WorkUnit(dependency, typeof(RootActor)));
+            this.User = new Process(bucket, this.Root, new WorkUnit(dependency, typeof(UserActor)));
+            this.System = new Process(bucket, this.Root, new WorkUnit(dependency, typeof(SystemActor)));
             this.Root.Start();
             this.User.Start();
             this.System.Start();

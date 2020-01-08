@@ -19,10 +19,12 @@ namespace MLambda.Actors.HelloWorld
     using System.Reactive;
     using System.Threading.Tasks;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Annotation;
 
     /// <summary>
     /// The hello world actor example.
     /// </summary>
+    [Route("/HelloWorld")]
     public class HelloWorld : Actor
     {
         /// <inheritdoc/>

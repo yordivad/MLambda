@@ -18,6 +18,7 @@ namespace MLambda.Actors.Test.Actors
     using System;
     using System.Reactive;
     using MLambda.Actors.Abstraction;
+    using MLambda.Actors.Abstraction.Annotation;
     using MLambda.Actors.Abstraction.Supervision;
     using MLambda.Actors.Supervision;
     using MLambda.Actors.Test.Actors.Command;
@@ -25,6 +26,7 @@ namespace MLambda.Actors.Test.Actors
     /// <summary>
     /// The supervisor actor.
     /// </summary>
+    [Route("/supervisor")]
     public class SupervisionActor : Actor
     {
         /// <summary>

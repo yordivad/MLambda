@@ -143,7 +143,7 @@ namespace MLambda.Actors
             where T : IActor
         {
             var job = new WorkUnit(this.dependency, typeof(T));
-            var process = new Process(this, parent.Current, job);
+            var process = new Process(this, parent, job);
             this.processes.Add(process.Id, process);
             process.Start();
             return process;

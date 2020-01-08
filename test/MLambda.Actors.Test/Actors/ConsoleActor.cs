@@ -25,7 +25,7 @@ namespace MLambda.Actors.Test.Actors
     /// <summary>
     /// The console actor.
     /// </summary>
-    [Route("console")]
+    [Route("/console")]
     public class ConsoleActor : Actor
     {
         /// <inheritdoc/>

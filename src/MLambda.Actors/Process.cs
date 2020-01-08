@@ -29,18 +29,17 @@ namespace MLambda.Actors
 
         private LifeCycle state;
 
-        private string path;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Process"/> class.
         /// </summary>
         /// <param name="bucket">the bucket.</param>
         /// <param name="parent">the parent job.</param>
         /// <param name="current">the current job.</param>
-        public Process(IBucket bucket, IWorkUnit parent, IWorkUnit current)
+        public Process(IBucket bucket, IProcess parent, IWorkUnit current)
         {
             this.bucket = bucket;
-            this.Parent = parent;
+            this.Parent = parent?.Current;
+            this.Route = $"{parent?.Route}{current.Name}";
             this.Current = current;
             this.state = LifeCycle.Created;
         }
@@ -120,9 +119,7 @@ namespace MLambda.Actors
         /// <summary>
         /// Gets the path.
         /// </summary>
-        public string Route => this.path ??= this.Parent.Name.EndsWith("/")
-            ? $"{this.Parent.Name}{this.Current.Name}"
-            : $"{this.Parent.Name}/{this.Current.Name}";
+        public string Route { get; }
 
         /// <summary>
         /// Stops the scheduler.
@@ -157,10 +154,9 @@ namespace MLambda.Actors
         /// Escalate the exception to the parent.
         /// </summary>
         /// <param name="exception">The exception.</param>
-        public void Escalate(Exception exception)
-        {
+        public void Escalate(Exception exception) =>
             this.Parent.Supervisor.Handle(exception, this.bucket.Parent(this));
-        }
+
 
         /// <summary>
         /// Restart the actor model.
@@ -183,9 +179,7 @@ namespace MLambda.Actors
             where T : IActor =>
             this.bucket.Spawn<T>(this);
 
-        private async Task Receive(IMessage message)
-        {
+        private async Task Receive(IMessage message) =>
             await this.Current.Supervisor.Apply(message)(new Context(this));
-        }
     }
 }
