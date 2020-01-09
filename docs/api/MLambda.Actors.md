@@ -1,4 +1,3 @@
-<a name='assembly'></a>
 # MLambda.Actors
 
 ## Contents

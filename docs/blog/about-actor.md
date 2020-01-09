@@ -1,8 +1,13 @@
-![banner](assets/blog-01.png)
-
 # Actor Computational Model
 
+![banner](assets/blog-01.png)
+
+
+
+
 ## Abstract
+
+---
 
 In this paper, we are going to cover the concepts about Actor Computational Model and Reactive Programming,
 as you know there are many computational models, as Turing Machines, Von Neumann Architectures that helps us to write interactive programming, Actor model break the way that we think in computational. 
@@ -10,11 +15,15 @@ Actors Model is base on physical properties, that allow us to think differently.
 
 ## Motivation
 
+---
+
 We want to model intelligence in terms of a society of communication knowledge- base problem-solving experts. In turn, each of the experts can be viewed as a society that can be further decomposed in the same way until the primitive actors of the system are reached [Hewitt, 1976]
 
 This is the motivation to study actor, it is a completely different way to understand computational, in order to provide smart agents that are interacting between them resolving problems. as today we are building Microservices architectures but it is not more than actors interacting between them.
 
-# What is an actor:
+## What is an actor:
+
+---
 
 An actor is a computational mathematical model for concurrent, distributed, parallel primitive units of computation. That means is the model of computation.
 
@@ -24,7 +33,7 @@ The actors are a closed system that allows some mathematical aspects as the Quas
 
 **Quasi-Commutativity**: it is guaranteed because of the order of receiving a message don't matter in the order that was created.
 
-**Computational representation theorem**: the actors are closed in the sense that they do not receive communication from outside. In this way, the behaviour of an actor S can be mathematically characterized in terms of all its possible behaviours, S = U(Bi)
+**Computational representation theorem**: the actors are closed in the sense that they do not receive communication from outside. In this way, the behaviour of an actor S can be mathematically characterized in terms of all its possible behaviours, $S = U(Bi)$
 
 **Locality**: In response to a message received an Actor can change only its local storage that can include address only of Actors provided when it was created.
 

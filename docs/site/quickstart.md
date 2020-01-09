@@ -1,5 +1,7 @@
 # Quickstart
 
+---
+
 To define an actor inheritance of Actor class and override the method **Receive**
 
 > The receive method use pattern matching to apply the behaviours.

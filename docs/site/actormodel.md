@@ -1,5 +1,7 @@
 # Actor Model
 
+---
+
 Actor models is a mathematical computational model that allow creating distributed, concurrent and parallel computational.
 “Actors” as the universal primitives of concurrent digital computation [Hewitt, Bishop, and Steiger 1973; Hewitt 1977]
 
@@ -30,3 +32,16 @@ the message. The recipient could then cause a response message to be sent to the
 The actor models support the indeterminacy, there is no order in the arrival of the message
 so it can affect future behaviour. that means it is a quasi-commutative aspect of the actor
 the order can affect future behaviour.
+
+## More About Actor Model
+
+See a video of Hewitt talking [About Actors](https://www.youtube.com/watch?v=7erJ1DV_Tlo)
+
+### References
+
+---
+
+### Books
+
+---
+
