@@ -356,3 +356,5 @@ lcov.info
 paket.lock
 
 .paket/
+
+package-lock.json

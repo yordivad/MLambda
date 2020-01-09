@@ -1,14 +1,11 @@
 
-<a class="ribbon" href="https://www.reactivemanifesto.org/" style="right: 0; top:0; position: absolute;">
-    <img src="https://www.reactivemanifesto.org//images/ribbons/d8b11ebfd1a966d2b28b838357edf892-we-are-reactive-blue-right.png">
-</a>
-
+<a href="http://www.reactivemanifesto.org/"> <img style="border: 0; position: absolute; left: 0; top:0; z-index: 9000" src="//d379ifj7s9wntv.cloudfront.net/reactivemanifesto/images/ribbons/we-are-reactive-blue-left.png"> </a>
 
 [![logo](site/assets/mactor.png)](https://www.mlambda.net)
 
 # MLambda Actors <small>1.0</small>
 
-The actor model is a mathematical theory of computation that treats "Actors" as 
+The actor model is a mathematical theory of computation that treats "Actors" as
 universal primitives of concurrent digital computation 
 
  > [Hewitt, Bishop and Steiger 1973; Hewitt 1977]

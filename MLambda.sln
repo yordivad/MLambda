@@ -20,6 +20,7 @@ ProjectSection(SolutionItems) = preProject
 	docs\_coverpage.md = docs\_coverpage.md
 	docs\_navbar.md = docs\_navbar.md
 	docs\_sidebar.md = docs\_sidebar.md
+	docs\my404.md = docs\my404.md
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{23217F20-823C-41C9-8CD3-12AA6BD1BEEE}"

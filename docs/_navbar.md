@@ -13,7 +13,5 @@
 
 * [Chat](https://gitter.im/M-Lambda/Actor)
  
-* [GitHub](https://github.com/RoyGI/MLambda)
-
  
  
